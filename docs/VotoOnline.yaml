@@ -1,0 +1,200 @@
+openapi: 3.1.0
+info:
+  title: VotoOnline
+  version: '1.0'
+  description: API per la web app di VotoOnline
+  contact:
+    name: VotoOnline
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /login:
+    post:
+      summary: ''
+      operationId: post-login
+      responses:
+        '200':
+          $ref: '#/components/responses/loginResponse'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Login endpoint
+      tags:
+        - login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples: {}
+        description: 'La richiesta di login contiene nel body la mail e la passaword dell''utente '
+  /votations:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - votations
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-votations
+      description: 'Richiesta di tutte le votazioni '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Votation'
+    post:
+      summary: ''
+      operationId: post-votations
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Richiesta di insierimento di una nuova votazione tra quelle già esistenti
+      tags:
+        - votations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Votation'
+            examples: {}
+        description: La richiesta contiene nel body la votazione da aggiungere
+    put:
+      summary: ''
+      operationId: put-votations
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: 'Richiesta di modifica di una votazione: l''utente generico ha completato una votazione che deve quindi essere modificata nei campi ''voted'' (diventa true) e ''result'' (contiene il voto dell''utente)'
+      tags:
+        - votations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Votation'
+        description: 'La richiesta contine nel body la votazione completata dall''utente, su cui sono state apportate le modifiche ai campi ''voted'' e ''result'''
+      parameters: []
+    parameters: []
+components:
+  schemas:
+    Votation:
+      title: Votation
+      type: object
+      description: Modello di una votazione
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+          maxLength: 100
+        dateStart:
+          type: string
+          format: date
+          description: Data di inizio votazione
+        dateEnd:
+          type: string
+          format: date
+          description: Data di fine votazione
+        voted:
+          type: boolean
+          default: false
+          description: 'Booleano per capire se la votazione è già stata conclusa (true) o meno (false) '
+        result:
+          type: string
+          default: ''''''
+          description: Stringa contenente il risualto della votazione (se voted === false => result === '')
+        cards:
+          type: array
+          maxItems: 8
+          description: Array contente tutte le scelte per la votazione
+          minItems: 2
+          items:
+            $ref: '#/components/schemas/VoteCard'
+      required:
+        - title
+        - description
+        - dateStart
+        - dateEnd
+        - voted
+        - result
+        - cards
+    VoteCard:
+      title: VoteCard
+      type: object
+      description: 'Modello di un opzione della votazione: immagine del partito e nome del partito'
+      properties:
+        nomePartito:
+          type: string
+        imgPartito:
+          type: string
+          format: byte
+          description: ''
+      required:
+        - nomePartito
+        - imgPartito
+    User:
+      title: User
+      type: object
+      description: Modello di un utente che esegue il login
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+      required:
+        - email
+        - password
+  responses:
+    loginResponse:
+      description: 'Risposta alla richiesta di login dell''utente che ritorna il ruolo dell''utente '
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userId:
+                type: number
+              role:
+                type: string
+                description: 'Viene ritornato il ruolo dell''utente che sta eseguendo il login: admin o genericUser'
+                enum:
+                  - admin
+                  - genericUser
+            required:
+              - userId
+              - role
+          examples:
+            admin:
+              value:
+                userId: 0
+                role: admin
+            genericUser:
+              value:
+                userId: 1
+                role: genericUser
+tags:
+  - name: login
+  - name: votations
