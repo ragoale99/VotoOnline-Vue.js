@@ -1,15 +1,20 @@
 <template>
 	<v-app>
 		<the-header></the-header>
+		<v-main>
+			<login-page></login-page>
+		</v-main>
 	</v-app>
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
+import LoginPage from "./components/LoginPage.vue";
 
 export default {
 	components: {
 		TheHeader,
+		LoginPage,
 	},
 };
 </script>
