@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
 	data() {
 		return {
@@ -93,13 +94,43 @@ export default {
 				(v) => !!v || "L'email è obbligatoria",
 				(v) => /.+@.+\..+/.test(v) || "L'email deve essere valida",
 			],
+			role: "",
 		};
 	},
 	methods: {
 		submitForm() {
 			this.loading = true;
+			if (this.password !== "admin") {
+				axios
+					.post("http://127.0.0.1:3100/login?__example=genericUser", {
+						email: this.email,
+						password: this.password,
+					})
+					.then((response) => {
+						this.role = response.data.role;
+						console.log(this.role);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			} else {
+				axios
+					.post("http://127.0.0.1:3100/login?__example=admin", {
+						email: this.email,
+						password: this.password,
+					})
+					.then((response) => {
+						this.role = response.data.role;
+						console.log(this.role);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
+
 			this.$refs.form.reset();
 			this.touched = false;
+			this.loading = false;
 		},
 		validate() {
 			this.$refs.form.validate();
