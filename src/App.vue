@@ -2,7 +2,11 @@
 	<v-app>
 		<the-header></the-header>
 		<v-main>
-			<login-page></login-page>
+			<login-page v-if="role === ''" @changeRole="setRole"></login-page>
+			<generic-user-content
+				v-if="role === 'genericUser'"
+			></generic-user-content>
+			<admin-content v-if="role === 'admin'"></admin-content>
 		</v-main>
 	</v-app>
 </template>
@@ -10,11 +14,26 @@
 <script>
 import TheHeader from "./components/TheHeader.vue";
 import LoginPage from "./components/LoginPage.vue";
+import GenericUserContent from "./components/GenericUserContent.vue";
+import AdminContent from "./components/AdminContent.vue";
 
 export default {
 	components: {
 		TheHeader,
 		LoginPage,
+		GenericUserContent,
+		AdminContent,
+	},
+	data() {
+		return {
+			role: "",
+		};
+	},
+	methods: {
+		setRole(ruolo) {
+			this.role = ruolo;
+			console.log(this.role);
+		},
 	},
 };
 </script>

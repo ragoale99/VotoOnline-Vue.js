@@ -73,6 +73,7 @@
 <script>
 import axios from "axios";
 export default {
+	emits: ["changeRole"],
 	data() {
 		return {
 			show: true,
@@ -94,7 +95,6 @@ export default {
 				(v) => !!v || "L'email è obbligatoria",
 				(v) => /.+@.+\..+/.test(v) || "L'email deve essere valida",
 			],
-			role: "",
 		};
 	},
 	methods: {
@@ -107,8 +107,8 @@ export default {
 						password: this.password,
 					})
 					.then((response) => {
-						this.role = response.data.role;
-						console.log(this.role);
+						const ruolo = response.data.role;
+						this.$emit("changeRole", ruolo);
 					})
 					.catch((error) => {
 						console.log(error);
@@ -120,8 +120,8 @@ export default {
 						password: this.password,
 					})
 					.then((response) => {
-						this.role = response.data.role;
-						console.log(this.role);
+						const ruolo = response.data.role;
+						this.$emit("changeRole", ruolo);
 					})
 					.catch((error) => {
 						console.log(error);
