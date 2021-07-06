@@ -56,7 +56,7 @@
 							type="submit"
 							color="success"
 							@click="validate"
-							width="100%"
+							block
 						>
 							Accedi
 						</v-btn>
