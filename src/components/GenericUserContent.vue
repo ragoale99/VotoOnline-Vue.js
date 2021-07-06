@@ -25,12 +25,69 @@
 								</div>
 							</v-card-text>
 							<div>
-								<v-btn @click="deleteItem(item.id)" class="mx-4" color="primary"
-									>Dettagli</v-btn
-								>
-								<v-btn @click="deleteItem(item.id)" color="success" class="px-8"
-									>Inzia</v-btn
-								>
+								<v-dialog :retain-focus="false" v-model="dialog" width="500">
+									<template v-slot:activator="{ on, attrs }">
+										<v-btn
+											class="mx-4"
+											color="primary"
+											v-bind="attrs"
+											v-on="on"
+											@click="setVotation(votation)"
+											>Dettagli</v-btn
+										>
+									</template>
+									<v-card>
+										<v-card-title>
+											<h3>Dettagli votazione</h3>
+										</v-card-title>
+
+										<v-card-text>
+											<ul>
+												<li>
+													Data di inizio:
+													<strong>
+														{{ dataFormat(selectedVotation.dateStart) }}
+													</strong>
+												</li>
+												<li>
+													Data di inizio:
+													<strong
+														>{{ dataFormat(selectedVotation.dateEnd) }}
+													</strong>
+												</li>
+												<li>
+													Scelte:
+													<ul
+														v-for="option in selectedVotation.options"
+														:key="option.nome"
+													>
+														<div class="flex my-3">
+															<v-avatar height="150" width="150" class="mr-3">
+																<img
+																	:src="getImgUrl(option.imagePath)"
+																	:alt="option.nome"
+																/>
+															</v-avatar>
+															<li>
+																<h2>{{ option.nome }}</h2>
+															</li>
+														</div>
+													</ul>
+												</li>
+											</ul>
+										</v-card-text>
+
+										<v-divider></v-divider>
+
+										<v-card-actions>
+											<v-spacer></v-spacer>
+											<v-btn @click="dialog = false">
+												Indietro
+											</v-btn>
+										</v-card-actions>
+									</v-card>
+								</v-dialog>
+								<v-btn color="success" class="px-8">Inzia</v-btn>
 							</div>
 						</v-card>
 					</v-col>
@@ -60,24 +117,40 @@
 								</div>
 							</v-card-text>
 							<div>
-								<v-btn @click="deleteItem(item.id)" class="mx-4" color="primary"
-									>Dettagli</v-btn
-								>
+								<v-btn class="mx-4" color="primary">Dettagli</v-btn>
 							</div>
 						</v-card>
 					</v-col>
 				</v-row></v-card
 			>
 		</v-container>
+		<div class="text-center">
+			<v-dialog v-model="dialog" width="500"> </v-dialog>
+		</div>
 	</div>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
 	data() {
 		return {
 			votations: this.$store.getters.votationsStored,
+			dialog: false,
+			selectedVotation: "",
 		};
+	},
+	methods: {
+		dataFormat(data) {
+			return moment(data).format("DD/MM/YYYY");
+		},
+		setVotation(votation) {
+			this.selectedVotation = votation;
+		},
+		getImgUrl(image) {
+			return require("../assets/images/" + image);
+		},
 	},
 };
 </script>
@@ -85,5 +158,16 @@ export default {
 <style scoped>
 .borders {
 	border: 1px solid rgb(179, 179, 179);
+}
+
+li {
+	list-style: none;
+}
+
+.flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
 }
 </style>

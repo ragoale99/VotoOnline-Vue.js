@@ -24,61 +24,28 @@ export const store = new Vuex.Store({
 					voted: false,
 					result: "",
 					options: [
-						{ imagePath: "./../assets/images/lega.jpg", nome: "Lega Nord" },
+						{ imagePath: "lega.jpg", nome: "Lega Nord" },
 						{
-							imagePath: "./../assets/images/potere_al_popolo.jpg",
+							imagePath: "potere_al_popolo.jpg",
 							nome: "Potere al popolo!",
 						},
 						{
-							imagePath: "./../assets/images/giovani_democratici.png",
+							imagePath: "giovani_democratici.png",
 							nome: "Giovani democratici",
 						},
 						{
-							imagePath: "./../assets/images/italia_viva.png",
+							imagePath: "italia_viva.png",
 							nome: "Italia Viva",
 						},
-						{ imagePath: "./../assets/images/berla.jpg", nome: "Berlusconi" },
+						{ imagePath: "berla.jpg", nome: "Berlusconi" },
 						{
-							imagePath: "./../assets/images/fratelli_italia.png",
+							imagePath: "fratelli_italia.png",
 							nome: "Fratelli d'Italia",
 						},
 					],
 				},
 				{
 					id: 1,
-					title: "Regionali",
-					description: "Votazione per la scelta del capo della regione",
-					dateStart: new Date(),
-					dateEnd: new Date(),
-					voted: true,
-					result: "Lega Nord",
-					options: [
-						{ imagePath: "./../assets/images/lega.jpg", nome: "Lega Nord" },
-						{
-							imagePath: "./../assets/images/potere_al_popolo.jpg",
-							nome: "Potere al popolo!",
-						},
-						{
-							imagePath: "./../assets/images/cambiamo.png",
-							nome: "Cambiamo!",
-						},
-						{
-							imagePath: "./../assets/images/italia_viva.png",
-							nome: "Italia Viva",
-						},
-						{ imagePath: "./../assets/images/berla.jpg", nome: "Berlusconi" },
-						{
-							imagePath: "./../assets/images/fratelli_italia.png",
-							nome: "Fratelli d'Italia",
-						},
-						{
-							imagePath: "./../assets/images/movimento5stelle.jpg",
-							nome: "Movimento 5 Stelle",
-						},
-					],
-				},
-				{
-					id: 2,
 					title: "Parlamentari",
 					description: "Votazione bellissima",
 					dateStart: new Date(),
@@ -87,11 +54,44 @@ export const store = new Vuex.Store({
 					result: "Movimento 5 Stelle",
 					options: [
 						{
-							imagePath: "./../assets/images/fratelli_italia.png",
+							imagePath: "fratelli_italia.png",
 							nome: "Fratelli d'Italia",
 						},
 						{
-							imagePath: "./../assets/images/movimento5stelle.jpg",
+							imagePath: "movimento5stelle.jpg",
+							nome: "Movimento 5 Stelle",
+						},
+					],
+				},
+				{
+					id: 2,
+					title: "Regionali",
+					description: "Votazione per la scelta del capo della regione",
+					dateStart: new Date(),
+					dateEnd: new Date(),
+					voted: true,
+					result: "Lega Nord",
+					options: [
+						{ imagePath: "lega.jpg", nome: "Lega Nord" },
+						{
+							imagePath: "potere_al_popolo.jpg",
+							nome: "Potere al popolo!",
+						},
+						{
+							imagePath: "cambiamo.png",
+							nome: "Cambiamo!",
+						},
+						{
+							imagePath: "italia_viva.png",
+							nome: "Italia Viva",
+						},
+						{ imagePath: "berla.jpg", nome: "Berlusconi" },
+						{
+							imagePath: "fratelli_italia.png",
+							nome: "Fratelli d'Italia",
+						},
+						{
+							imagePath: "movimento5stelle.jpg",
 							nome: "Movimento 5 Stelle",
 						},
 					],
