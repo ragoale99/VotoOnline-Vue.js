@@ -7,7 +7,7 @@
 				</v-card-title>
 				<v-row class="mx-md-5" align="center">
 					<v-col
-						v-for="votation in this.$store.getters.votationsStored"
+						v-for="votation in votationsToDo"
 						:key="votation.id"
 						cols="12"
 						md="6"
@@ -24,6 +24,7 @@
 									12 indoor seats plus patio seating.
 								</div>
 							</v-card-text>
+
 							<div>
 								<v-dialog :retain-focus="false" v-model="dialog" width="500">
 									<template v-slot:activator="{ on, attrs }">
@@ -36,13 +37,16 @@
 											>Dettagli</v-btn
 										>
 									</template>
+
 									<v-card>
 										<v-card-title>
 											<h3>Dettagli votazione</h3>
 										</v-card-title>
 
+										<v-divider></v-divider>
+
 										<v-card-text>
-											<ul>
+											<ul class="mt-2">
 												<li>
 													Data di inizio:
 													<strong>
@@ -87,7 +91,7 @@
 										</v-card-actions>
 									</v-card>
 								</v-dialog>
-								<v-btn color="success" class="px-8">Inzia</v-btn>
+								<v-btn color="success" class="px-4">Inizia votazione</v-btn>
 							</div>
 						</v-card>
 					</v-col>
@@ -99,7 +103,7 @@
 				</v-card-title>
 				<v-row class="mx-md-5" align="center">
 					<v-col
-						v-for="votation in this.$store.getters.votationsStored"
+						v-for="votation in votationsDone"
 						:key="votation.id"
 						cols="12"
 						md="6"
@@ -139,6 +143,8 @@ export default {
 			votations: this.$store.getters.votationsStored,
 			dialog: false,
 			selectedVotation: "",
+			votationsToDo: "",
+			votationsDone: "",
 		};
 	},
 	methods: {
@@ -151,6 +157,26 @@ export default {
 		getImgUrl(image) {
 			return require("../assets/images/" + image);
 		},
+		setVotationsToDo(votations) {
+			/* var today = new Date();   && today <= dateEnd*/
+			return votations.filter((votation) => {
+				/* const dateEnd = new Date(votation.dataEnd); */
+				return votation.voted === false;
+			});
+		},
+		setVotationsDone(votations) {
+			return votations.filter((votation) => {
+				return votation.voted !== false;
+			});
+		},
+	},
+	beforeMount() {
+		this.votationsToDo = this.setVotationsToDo(
+			this.$store.getters.votationsStored
+		);
+		this.votationsDone = this.setVotationsDone(
+			this.$store.getters.votationsStored
+		);
 	},
 };
 </script>
