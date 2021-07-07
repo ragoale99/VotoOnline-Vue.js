@@ -2,15 +2,30 @@
 	<header>
 		<img src="./../assets/logo.png" alt="logo vue" class="logo mr-2" />
 		<h1>Voto Online</h1>
-		<v-btn color="#FFEE58" class="black--text last mr-4 mt-2" elevation="10">
+		<v-btn
+			color="#FFEE58"
+			class="black--text last mr-4 mt-2"
+			elevation="10"
+			@click="logout"
+		>
 			<v-icon dark class="mr-2">logout</v-icon>
 			<strong>Log Out</strong></v-btn
 		>
-		<v-btn class="mx-2 float-btn" fab dark color="red">
+		<v-btn class="mx-2 float-btn" fab dark color="red" @click="logout">
 			<v-icon dark>logout</v-icon>
 		</v-btn>
 	</header>
 </template>
+
+<script>
+export default {
+	methods: {
+		logout() {
+			this.$store.dispatch("setRuolo", { role: "" });
+		},
+	},
+};
+</script>
 
 <style scoped>
 header {
