@@ -42,7 +42,10 @@
 				<v-tooltip top :disabled="cardSelected !== ''">
 					<template v-slot:activator="{ on, attrs }">
 						<div v-bind="attrs" v-on="on">
-							<v-btn color="success" :disabled="cardSelected === ''"
+							<v-btn
+								color="success"
+								:disabled="cardSelected === ''"
+								@click="votationEnd()"
 								>Termina votazione</v-btn
 							>
 						</div>
@@ -81,6 +84,14 @@ export default {
 				}
 			}
 			return false;
+		},
+		votationEnd() {
+			this.$store.dispatch("changeVotation", {
+				result: this.cardSelected.nome,
+				votation: this.selectedVotation,
+			});
+			this.$emit("backToHomePage");
+			this.$emit("updateLists");
 		},
 	},
 };

@@ -193,6 +193,11 @@
 		<votation
 			v-if="startVotation"
 			:selected-votation="selectedVotation"
+			@backToHomePage="startVotation = false"
+			@updateLists="
+				votationsToDo = setVotationsToDo();
+				votationsDone = setVotationsDone();
+			"
 		></votation>
 	</div>
 </template>
