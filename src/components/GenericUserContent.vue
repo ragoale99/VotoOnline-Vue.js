@@ -20,10 +20,7 @@
 								</v-card-title>
 								<v-card-text class="my-4">
 									<v-row align="center" class="mx-0 mt-2"></v-row>
-									<div>
-										Small plates, salads & sandwiches - an intimate setting with
-										12 indoor seats plus patio seating.
-									</div>
+									<p class="bigger">{{ votation.description }}</p>
 								</v-card-text>
 
 								<div>
@@ -123,11 +120,8 @@
 									>{{ votation.title }}
 								</v-card-title>
 								<v-card-text class="my-4">
-									<v-row align="center" class="mx-0 mt-2"></v-row>
-									<div>
-										Small plates, salads & sandwiches - an intimate setting with
-										12 indoor seats plus patio seating.
-									</div>
+									<v-row align="center" class=" mx-0 mt-2"></v-row>
+									<p class="bigger">{{ votation.description }}</p>
 								</v-card-text>
 								<div>
 									<v-btn class="mx-4" color="primary">Dettagli</v-btn>
@@ -213,7 +207,11 @@ li {
 .flex {
 	display: flex;
 	flex-direction: row;
-	justify-content: start;
+	justify-content: flex-start;
 	align-items: center;
+}
+
+.bigger {
+	font-size: 16px;
 }
 </style>
