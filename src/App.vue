@@ -2,11 +2,11 @@
 	<v-app>
 		<the-header></the-header>
 		<v-main>
-			<login-page v-if="role === ''" @changeRole="setRole"></login-page>
+			<login-page v-if="getRole === ''"></login-page>
 			<generic-user-content
-				v-if="role === 'genericUser'"
+				v-if="getRole === 'genericUser'"
 			></generic-user-content>
-			<admin-content v-if="role === 'admin'"></admin-content>
+			<admin-content v-if="getRole === 'admin'"></admin-content>
 		</v-main>
 	</v-app>
 </template>
@@ -24,15 +24,9 @@ export default {
 		GenericUserContent,
 		AdminContent,
 	},
-	data() {
-		return {
-			role: "genericUser",
-		};
-	},
-	methods: {
-		setRole(ruolo) {
-			this.role = ruolo;
-			console.log(this.role);
+	computed: {
+		getRole() {
+			return this.$store.getters.getRole;
 		},
 	},
 };

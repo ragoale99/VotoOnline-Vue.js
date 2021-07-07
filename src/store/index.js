@@ -1,5 +1,6 @@
 import Vuex from "vuex";
 import Vue from "vue";
+import { v4 as uuidv4 } from "uuid";
 
 import rootMutations from "./mutations.js";
 import rootActions from "./actions.js";
@@ -16,7 +17,7 @@ export const store = new Vuex.Store({
 		return {
 			votations: [
 				{
-					id: 0,
+					id: uuidv4(),
 					title: "Comunali",
 					description: "Votazione per la scelta del sindaco di Rubano",
 					dateStart: new Date(),
@@ -45,13 +46,13 @@ export const store = new Vuex.Store({
 					],
 				},
 				{
-					id: 1,
+					id: uuidv4(),
 					title: "Parlamentari",
 					description: "Votazione bellissima",
 					dateStart: new Date(),
 					dateEnd: new Date(),
-					voted: true,
-					result: "Movimento 5 Stelle",
+					voted: false,
+					result: "",
 					options: [
 						{
 							imagePath: "fratelli_italia.png",
@@ -64,7 +65,7 @@ export const store = new Vuex.Store({
 					],
 				},
 				{
-					id: 2,
+					id: uuidv4(),
 					title: "Regionali",
 					description: "Votazione per la scelta del capo della regione",
 					dateStart: new Date(),
@@ -97,6 +98,7 @@ export const store = new Vuex.Store({
 					],
 				},
 			],
+			role: "",
 		};
 	},
 	mutations: rootMutations,

@@ -56,7 +56,7 @@
 														</strong>
 													</li>
 													<li>
-														Data di inizio:
+														Data di fine:
 														<strong
 															>{{ dataFormat(selectedVotation.dateEnd) }}
 														</strong>
@@ -159,7 +159,7 @@
 													</strong>
 												</li>
 												<li>
-													Data di inizio:
+													Data di fine:
 													<strong
 														>{{ dataFormat(selectedVotation.dateEnd) }}
 													</strong>
@@ -207,7 +207,6 @@ export default {
 	},
 	data() {
 		return {
-			votations: this.$store.getters.votationsStored,
 			dialog: false,
 			selectedVotation: "",
 			votationsToDo: "",
@@ -223,31 +222,34 @@ export default {
 		},
 		setVotation(votation) {
 			this.selectedVotation = votation;
-			console.log(this.selectedVotation);
 		},
 		getImgUrl(image) {
 			return require("../assets/images/" + image);
 		},
-		setVotationsToDo(votations) {
+		setVotationsToDo() {
 			/* var today = new Date();   && today <= dateEnd*/
-			return votations.filter((votation) => {
+			return this.getVotations.filter((votation) => {
 				/* const dateEnd = new Date(votation.dataEnd); */
 				return votation.voted === false;
 			});
 		},
-		setVotationsDone(votations) {
-			return votations.filter((votation) => {
+		setVotationsDone() {
+			return this.getVotations.filter((votation) => {
 				return votation.voted !== false;
 			});
 		},
 	},
+	computed: {
+		getVotations() {
+			return this.$store.getters.votationsStored;
+		},
+		getRole() {
+			return this.$store.getters.getRole;
+		},
+	},
 	beforeMount() {
-		this.votationsToDo = this.setVotationsToDo(
-			this.$store.getters.votationsStored
-		);
-		this.votationsDone = this.setVotationsDone(
-			this.$store.getters.votationsStored
-		);
+		this.votationsToDo = this.setVotationsToDo();
+		this.votationsDone = this.setVotationsDone();
 	},
 };
 </script>

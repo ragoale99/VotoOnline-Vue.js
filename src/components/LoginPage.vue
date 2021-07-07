@@ -73,7 +73,6 @@
 <script>
 import axios from "axios";
 export default {
-	emits: ["changeRole"],
 	data() {
 		return {
 			show: true,
@@ -108,7 +107,7 @@ export default {
 					})
 					.then((response) => {
 						const ruolo = response.data.role;
-						this.$emit("changeRole", ruolo);
+						this.$store.dispatch("setRuolo", { role: ruolo });
 					})
 					.catch((error) => {
 						console.log(error);
@@ -121,7 +120,7 @@ export default {
 					})
 					.then((response) => {
 						const ruolo = response.data.role;
-						this.$emit("changeRole", ruolo);
+						this.$store.dispatch("setRuolo", { role: ruolo });
 					})
 					.catch((error) => {
 						console.log(error);
