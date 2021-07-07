@@ -24,7 +24,11 @@
 								</v-card-text>
 
 								<div>
-									<v-dialog :retain-focus="false" v-model="dialog" width="500">
+									<v-dialog
+										:retain-focus="false"
+										v-model="dialogToDo"
+										width="500"
+									>
 										<template v-slot:activator="{ on, attrs }">
 											<v-btn
 												class="mx-4"
@@ -83,7 +87,7 @@
 
 											<v-card-actions>
 												<v-spacer></v-spacer>
-												<v-btn @click="dialog = false">
+												<v-btn @click="dialogToDo = false">
 													Indietro
 												</v-btn>
 											</v-card-actions>
@@ -123,9 +127,60 @@
 									<v-row align="center" class=" mx-0 mt-2"></v-row>
 									<p class="bigger">{{ votation.description }}</p>
 								</v-card-text>
-								<div>
-									<v-btn class="mx-4" color="primary">Dettagli</v-btn>
-								</div>
+								<v-dialog
+									:retain-focus="false"
+									v-model="dialogDone"
+									width="500"
+								>
+									<template v-slot:activator="{ on, attrs }">
+										<v-btn
+											class="mx-4"
+											color="primary"
+											v-bind="attrs"
+											v-on="on"
+											@click="setVotation(votation)"
+											>Dettagli</v-btn
+										>
+									</template>
+
+									<v-card>
+										<v-card-title>
+											<h3>Dettagli votazione</h3>
+										</v-card-title>
+
+										<v-divider></v-divider>
+
+										<v-card-text>
+											<ul class="mt-2">
+												<li>
+													Data di inizio:
+													<strong>
+														{{ dataFormat(selectedVotation.dateStart) }}
+													</strong>
+												</li>
+												<li>
+													Data di inizio:
+													<strong
+														>{{ dataFormat(selectedVotation.dateEnd) }}
+													</strong>
+												</li>
+												<li>
+													Hai votato:
+													<strong>{{ selectedVotation.result }}</strong>
+												</li>
+											</ul>
+										</v-card-text>
+
+										<v-divider></v-divider>
+
+										<v-card-actions>
+											<v-spacer></v-spacer>
+											<v-btn @click="dialogDone = false">
+												Indietro
+											</v-btn>
+										</v-card-actions>
+									</v-card>
+								</v-dialog>
 							</v-card>
 						</v-col>
 					</v-row>
@@ -158,6 +213,8 @@ export default {
 			votationsToDo: "",
 			votationsDone: "",
 			startVotation: false,
+			dialogDone: "",
+			dialogToDo: "",
 		};
 	},
 	methods: {
