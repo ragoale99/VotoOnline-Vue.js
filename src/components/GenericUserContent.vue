@@ -6,7 +6,10 @@
 					<v-card-title class="justify-center pt-0"
 						><h2>Votazioni disponibili</h2>
 					</v-card-title>
-					<v-row class="mx-md-5" align="center">
+					<p v-if="votationsToDoEmpty === true" class="text-center mt-4 mex">
+						Non ci sono votazioni disponibili in questo momento!
+					</p>
+					<v-row class="mx-md-5" align="center" v-if="!votationsToDoEmpty">
 						<v-col
 							v-for="votation in votationsToDo"
 							:key="votation.id"
@@ -15,8 +18,8 @@
 							lg="4"
 						>
 							<v-card elevation="24" shaped class="px-4 pb-4 borders">
-								<v-card-title class="justify-center"
-									>{{ votation.title }}
+								<v-card-title class="justify-center">
+									<h3>{{ votation.title }}</h3>
 								</v-card-title>
 								<v-card-text class="my-4">
 									<v-row align="center" class="mx-0 mt-2"></v-row>
@@ -111,7 +114,10 @@
 					<v-card-title class="justify-center pt-0"
 						><h2>Votazioni già concluse</h2>
 					</v-card-title>
-					<v-row class="mx-md-5" align="center">
+					<p v-if="votationsDoneEmpty" class="text-center mt-4 mex">
+						Non hai fatto nessuna votazione in passato.
+					</p>
+					<v-row class="mx-md-5" align="center" v-if="!votationsDoneEmpty">
 						<v-col
 							v-for="votation in votationsDone"
 							:key="votation.id"
@@ -121,7 +127,7 @@
 						>
 							<v-card elevation="24" outlined shaped class="px-4 pb-4  borders">
 								<v-card-title class="justify-center"
-									>{{ votation.title }}
+									><h3>{{ votation.title }}</h3>
 								</v-card-title>
 								<v-card-text class="my-4">
 									<v-row align="center" class=" mx-0 mt-2"></v-row>
@@ -219,6 +225,8 @@ export default {
 			startVotation: false,
 			dialogDone: "",
 			dialogToDo: "",
+			votationsToDoEmpty: false,
+			votationsDoneEmpty: false,
 		};
 	},
 	methods: {
@@ -233,15 +241,25 @@ export default {
 		},
 		setVotationsToDo() {
 			/* var today = new Date();   && today <= dateEnd*/
-			return this.getVotations.filter((votation) => {
-				/* const dateEnd = new Date(votation.dataEnd); */
-				return votation.voted === false;
-			});
+			const votationsToDo = this.getVotations.filter(
+				(votation) => votation.voted === false
+			);
+			if (votationsToDo.length === 0) {
+				this.votationsToDoEmpty = true;
+				return;
+			}
+			return votationsToDo;
+			/* const dateEnd = new Date(votation.dataEnd); */
 		},
 		setVotationsDone() {
-			return this.getVotations.filter((votation) => {
-				return votation.voted !== false;
-			});
+			const votationsDone = this.getVotations.filter(
+				(votation) => votation.voted !== false
+			);
+			if (votationsDone.length === 0) {
+				this.votationsToDoEmpty = true;
+				return;
+			}
+			return votationsDone;
 		},
 	},
 	computed: {
@@ -276,6 +294,11 @@ li {
 }
 
 .bigger {
-	font-size: 16px;
+	font-size: 17px;
+}
+
+.mex {
+	color: red;
+	font-size: 20px;
 }
 </style>
