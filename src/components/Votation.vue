@@ -50,7 +50,7 @@
 							>
 						</div>
 					</template>
-					<span>Bottone disabilitato!</span>
+					<span>Bottone disabilitato! Seleziona una carta per votarla.</span>
 				</v-tooltip>
 			</div>
 		</v-row>
