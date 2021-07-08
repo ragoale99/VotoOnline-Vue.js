@@ -15,7 +15,7 @@
 							:key="votation.id"
 							cols="12"
 							md="6"
-							lg="4"
+							:lg="setNumberColums()"
 						>
 							<v-card elevation="24" shaped class="px-4 pb-4 borders">
 								<v-card-title class="justify-center">
@@ -123,7 +123,7 @@
 							:key="votation.id"
 							cols="12"
 							md="6"
-							lg="4"
+							:lg="setNumberColums()"
 						>
 							<v-card elevation="24" outlined shaped class="px-4 pb-4  borders">
 								<v-card-title class="justify-center"
@@ -260,6 +260,10 @@ export default {
 				return;
 			}
 			return votationsDone;
+		},
+		setNumberColums() {
+			if (this.votationsToDo.length === 2) return 6;
+			return 4;
 		},
 	},
 	computed: {

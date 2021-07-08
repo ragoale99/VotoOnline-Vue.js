@@ -6,7 +6,7 @@
 				:key="option.nome"
 				cols="12"
 				md="6"
-				:lg="setNumberColums('lg')"
+				:lg="setNumberColums()"
 			>
 				<v-card
 					elevation="24"

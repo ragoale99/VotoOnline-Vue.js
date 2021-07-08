@@ -9,4 +9,9 @@ export default {
 		voteToChange.voted = true;
 		voteToChange.result = payload.result;
 	},
+	deleteVotation(state, payload) {
+		state.votations = state.votations.filter(
+			(votation) => votation !== payload.votation
+		);
+	},
 };

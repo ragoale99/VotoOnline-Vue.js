@@ -5,4 +5,7 @@ export default {
 	changeVotation(context, result, votation) {
 		context.commit("changeVotation", result, votation);
 	},
+	deleteVotation(context, votation) {
+		context.commit("deleteVotation", votation);
+	},
 };
