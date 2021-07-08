@@ -100,7 +100,7 @@ export default {
 				moment(this.selectedVotation.dateEnd).format("YYYY-MM-DD"),
 			],
 			file: [],
-			url: [],
+			url: this.inizializeUrls(),
 		};
 	},
 	methods: {
@@ -114,6 +114,13 @@ export default {
 			let arr = [];
 			for (let i = 0; i < this.selectedVotation.options.length; i++) {
 				arr.push(this.selectedVotation.options[i].nome);
+			}
+			return arr;
+		},
+		inizializeUrls() {
+			let arr = [];
+			for (let i = 0; i < this.selectedVotation.options.length; i++) {
+				arr.push(this.getImgUrl(this.selectedVotation.options[i].imagePath));
 			}
 			return arr;
 		},
