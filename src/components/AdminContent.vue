@@ -13,8 +13,8 @@
 					v-for="votation in votationsToDo"
 					:key="votation.id"
 					cols="12"
-					md="6"
-					:lg="setNumberColums()"
+					:md="setNumberColums('md')"
+					:lg="setNumberColums('lg')"
 				>
 					<v-card elevation="24" shaped class="px-4 pb-4 borders">
 						<v-card-title class="justify-center">
@@ -93,6 +93,19 @@
 				</v-col>
 			</v-row>
 		</v-card>
+		<div class="flex-centered mt-5">
+			<v-btn
+				@click="
+					deleteVotation(selectedVotation);
+					votationsToDo = setVotationsToDo();
+					dialogToDelete = false;
+				"
+				color="success"
+				class="px-4"
+				><v-icon dark class="mr-2">add</v-icon>
+				Crea una nuova votazione
+			</v-btn>
+		</div>
 	</v-container>
 </template>
 
@@ -120,9 +133,11 @@ export default {
 		setVotation(votation) {
 			this.selectedVotation = votation;
 		},
-		setNumberColums() {
-			if (this.votationsToDo.length === 2) return 6;
-			return 4;
+		setNumberColums(size) {
+			if (this.votationsToDo.length === 1) return 12;
+			if (this.votationsToDo.length === 2 || size === "md") return 6;
+			if (size === "lg") return 4;
+			return;
 		},
 		deleteVotation(votation) {
 			this.$store.dispatch("deleteVotation", { votation: votation });
@@ -151,6 +166,13 @@ export default {
 .mex {
 	color: red;
 	font-size: 20px;
+}
+
+.flex-centered {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 @media (max-width: 1005px) {

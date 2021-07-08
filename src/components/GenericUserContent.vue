@@ -14,8 +14,8 @@
 							v-for="votation in votationsToDo"
 							:key="votation.id"
 							cols="12"
-							md="6"
-							:lg="setNumberColums()"
+							:md="setNumberColums('md', votationsToDo)"
+							:lg="setNumberColums('lg', votationsToDo)"
 						>
 							<v-card elevation="24" shaped class="px-4 pb-4 borders">
 								<v-card-title class="justify-center">
@@ -122,8 +122,8 @@
 							v-for="votation in votationsDone"
 							:key="votation.id"
 							cols="12"
-							md="6"
-							:lg="setNumberColums()"
+							:md="setNumberColums('md', votationsDone)"
+							:lg="setNumberColums('lg', votationsDone)"
 						>
 							<v-card elevation="24" outlined shaped class="px-4 pb-4  borders">
 								<v-card-title class="justify-center"
@@ -261,9 +261,11 @@ export default {
 			}
 			return votationsDone;
 		},
-		setNumberColums() {
-			if (this.votationsToDo.length === 2) return 6;
-			return 4;
+		setNumberColums(size, votations) {
+			if (votations.length === 1) return 12;
+			if (votations.length === 2 || size === "md") return 6;
+			if (size === "lg") return 4;
+			return;
 		},
 	},
 	computed: {
