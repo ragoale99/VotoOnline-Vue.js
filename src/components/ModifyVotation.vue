@@ -1,89 +1,130 @@
 <template>
-	<v-container class="mt-2 contain">
-		<v-row>
-			<v-col cols="12">
-				<div class="flex my-4">
-					<h2>Modifica votazione</h2>
-				</div>
-			</v-col>
-			<v-col cols="12">
-				<v-text-field
-					v-model="title"
-					label="Title"
-					required
-					prepend-icon="title"
-				></v-text-field>
-			</v-col>
-			<v-col cols="12">
-				<v-textarea
-					v-model="description"
-					label="Description"
-					required
-					maxlength="100"
-					:counter="100"
-					clearable
-					clear-icon="cancel"
-					no-resize
-					rows="2"
-					prepend-icon="description"
-				></v-textarea>
-			</v-col>
-			<v-col cols="12">
-				<v-text-field
-					v-model="dateRangeText"
-					label="Date range"
-					prepend-icon="date_range"
-					readonly
-				></v-text-field>
-				<div class="flex">
-					<v-date-picker v-model="dates" range elevation="10"></v-date-picker>
-				</div>
-			</v-col>
-			<v-col
-				v-for="(option, index) in selectedVotation.options"
-				:key="option.nome"
-				cols="12"
-			>
-				<v-card elevation="24" class="pa-4">
-					<div class="flex">
-						<v-card-title>
-							<h3>Carta {{ index + 1 }}</h3>
-						</v-card-title>
-					</div>
+	<div>
+		<div class="flex back" @click="backToMainPage">
+			<v-icon class="mr-1" large color="blue">arrow_back</v-icon>
+			<h3><strong>Indietro</strong></h3>
+		</div>
+		<v-btn class="mx-2 float-btn" fab color="#2296f3" @click="backToMainPage">
+			<v-icon color="black" large>arrow_back</v-icon>
+		</v-btn>
+		<v-container class="mt-2 contain">
+			<v-form v-model="valid" @submit.prevent="submitForm" ref="form">
+				<v-row>
+					<v-col cols="12">
+						<div class="flex my-4">
+							<h2>Modifica votazione</h2>
+						</div>
+					</v-col>
+					<v-col cols="12">
+						<v-text-field
+							v-model="title"
+							label="Title"
+							required
+							prepend-icon="title"
+						></v-text-field>
+					</v-col>
+					<v-col cols="12">
+						<v-textarea
+							v-model="description"
+							label="Description"
+							required
+							maxlength="100"
+							:counter="100"
+							clearable
+							clear-icon="cancel"
+							no-resize
+							rows="2"
+							prepend-icon="description"
+						></v-textarea>
+					</v-col>
+					<v-col cols="12">
+						<v-text-field
+							v-model="dateRangeText"
+							label="Date range"
+							prepend-icon="date_range"
+							required
+							readonly
+						></v-text-field>
+						<div class="flex">
+							<v-date-picker
+								v-model="dates"
+								range
+								elevation="10"
+							></v-date-picker>
+						</div>
+					</v-col>
+					<v-col
+						v-for="(option, index) in selectedVotation.options"
+						:key="option.nome"
+						cols="12"
+					>
+						<v-card elevation="24" class="pa-4">
+							<v-icon
+								class="on-top-right"
+								@click="deleteCard(index)"
+								v-if="index > 1"
+								>clear</v-icon
+							>
+							<div class="flex">
+								<v-card-title>
+									<h3>Carta {{ index + 1 }}</h3>
+								</v-card-title>
+							</div>
 
-					<v-text-field
-						v-model="names[index]"
-						label="Nome"
-						required
-						prepend-icon="drive_file_rename_outline"
-					></v-text-field>
-					<v-file-input
-						v-model="file[index]"
-						accept="image/*"
-						@change="onFileChange(index)"
-						show-size
-						label="Immagine (preview qui sotto)"
-						prepend-icon="image"
-					></v-file-input>
-					<div class="flex" v-if="url[index] !== undefined">
-						<v-avatar height="150" width="150" class="mr-3 on-top">
-							<img :src="url[index]" :alt="option.name + ' logo'" />
-						</v-avatar>
-					</div>
-				</v-card>
-			</v-col>
-		</v-row>
-		<div class="flex mt-4">
-			<v-btn color="primary"
-				><v-icon class="mr-2">add</v-icon>Aggiunti carta</v-btn
-			>
-		</div>
-		<div class="flex mt-8">
-			<v-btn color="success"
-				><v-icon class="mr-2">auto_fix_high</v-icon>Modifica votazione</v-btn
-			>
-		</div>
-	</v-container>
+							<v-text-field
+								v-model="names[index]"
+								label="Nome"
+								required
+								prepend-icon="drive_file_rename_outline"
+							></v-text-field>
+							<v-file-input
+								v-model="file[index]"
+								accept="image/*"
+								@change="onFileChange(index)"
+								show-size
+								required
+								label="Immagine (preview qui sotto)"
+								prepend-icon="image"
+							></v-file-input>
+							<div class="flex" v-if="url[index] !== undefined">
+								<v-avatar height="150" width="150" class="mr-3 on-top">
+									<img :src="url[index]" :alt="option.name + ' logo'" />
+								</v-avatar>
+							</div>
+						</v-card>
+					</v-col>
+				</v-row>
+				<div class="flex mt-4">
+					<v-tooltip top :disabled="selectedVotation.options.length < 8">
+						<template v-slot:activator="{ on, attrs }">
+							<div
+								v-bind="attrs"
+								v-on="on"
+								:class="{ disab: selectedVotation.options.length >= 8 }"
+							>
+								<v-btn
+									color="primary"
+									@click="addCard"
+									:disabled="selectedVotation.options.length >= 8"
+									><v-icon class="mr-2">add</v-icon>Aggiunti carta</v-btn
+								>
+							</div>
+						</template>
+						<span
+							>Bottone disabilitato! Non si possono inserire più di 8
+							scelte.</span
+						>
+					</v-tooltip>
+				</div>
+				<div class="flex mt-8">
+					<v-btn color="success mb-4" type="submit"
+						><v-icon class="mr-2" :disabled="!valid">auto_fix_high</v-icon
+						>Modifica votazione</v-btn
+					>
+				</div>
+			</v-form>
+		</v-container>
+	</div>
 </template>
 
 <script>
@@ -92,6 +133,7 @@ export default {
 	props: ["selectedVotation"],
 	data() {
 		return {
+			valid: true,
 			title: this.selectedVotation.title,
 			description: this.selectedVotation.description,
 			names: this.inizializeNames(),
@@ -124,6 +166,25 @@ export default {
 			}
 			return arr;
 		},
+		deleteCard(index) {
+			console.log(index);
+			this.selectedVotation.options.splice(index, 1);
+			this.url.splice(index, 1);
+			this.names.splice(index, 1);
+		},
+		addCard() {
+			this.selectedVotation.options.push({
+				imagePath: "",
+				nome: "",
+			});
+		},
+		backToMainPage() {
+			this.$emit("backToMainPage");
+		},
+		submitForm() {
+			this.$refs.form.reset();
+			/* this.backToMainPage(); */
+		},
 	},
 	computed: {
 		dateRangeText() {
@@ -144,5 +205,69 @@ export default {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
+}
+
+.on-top-right {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+}
+
+.back {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	color: #2296f3;
+}
+
+.back:hover {
+	transform: scale(1.1);
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+	cursor: pointer;
+	user-select: none; /* supported by Chrome and Opera */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.disab {
+	cursor: not-allowed;
+}
+
+.v-application .primary--text {
+	color: #95e7c3 !important;
+	-webkit-text-fill-color: #95e7c3 !important;
+}
+
+.float-btn {
+	display: none;
+}
+
+@media (max-width: 1100px) {
+	.back {
+		display: none;
+	}
+
+	.float-btn {
+		display: block;
+		position: fixed;
+		bottom: 0.5em;
+		left: 0.5em;
+		z-index: 1;
+	}
+
+	.float-btn:hover {
+		transform: scale(1.1);
+		-webkit-transition: all 500ms ease;
+		-moz-transition: all 500ms ease;
+		-ms-transition: all 500ms ease;
+		-o-transition: all 500ms ease;
+		transition: all 500ms ease;
+	}
 }
 </style>

@@ -35,7 +35,7 @@
 										modifyVotation = true;
 									"
 								>
-									<v-icon dark class="mr-2">settings</v-icon>Modifica</v-btn
+									<v-icon class="mr-2">settings</v-icon>Modifica</v-btn
 								>
 								<v-dialog
 									:retain-focus="false"
@@ -54,7 +54,7 @@
 												startVotation = true;
 											"
 										>
-											<v-icon dark class="mr-2">clear</v-icon>Elimina
+											<v-icon class="mr-2">clear</v-icon>Elimina
 											votazione</v-btn
 										>
 									</template>
@@ -103,7 +103,7 @@
 					"
 					color="success"
 					class="px-4"
-					><v-icon dark class="mr-2">add</v-icon>
+					><v-icon class="mr-2">add</v-icon>
 					Crea una nuova votazione
 				</v-btn>
 			</div>
@@ -111,6 +111,7 @@
 		<modify-votation
 			v-if="modifyVotation"
 			:selected-votation="selectedVotation"
+			@backToMainPage="backToMainPage"
 		></modify-votation>
 	</div>
 </template>
@@ -153,6 +154,9 @@ export default {
 		},
 		deleteVotation(votation) {
 			this.$store.dispatch("deleteVotation", { votation: votation });
+		},
+		backToMainPage() {
+			this.modifyVotation = false;
 		},
 	},
 	computed: {

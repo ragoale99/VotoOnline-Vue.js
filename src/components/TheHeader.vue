@@ -8,11 +8,11 @@
 			elevation="10"
 			@click="logout"
 		>
-			<v-icon dark class="mr-2">logout</v-icon>
+			<v-icon class="mr-2">logout</v-icon>
 			<strong>Log Out</strong></v-btn
 		>
-		<v-btn class="mx-2 float-btn" fab dark color="red" @click="logout">
-			<v-icon dark>logout</v-icon>
+		<v-btn class="mx-2 float-btn" fab color="#FFEE58" @click="logout">
+			<v-icon color="black">logout</v-icon>
 		</v-btn>
 	</header>
 </template>
@@ -66,9 +66,18 @@ h1 {
 	.float-btn {
 		display: block;
 		position: fixed;
-		bottom: 0.4em;
-		right: 0.4em;
+		bottom: 0.5em;
+		right: 0.5em;
 		z-index: 1;
+	}
+
+	.float-btn:hover {
+		transform: scale(1.1);
+		-webkit-transition: all 500ms ease;
+		-moz-transition: all 500ms ease;
+		-ms-transition: all 500ms ease;
+		-o-transition: all 500ms ease;
+		transition: all 500ms ease;
 	}
 }
 </style>
