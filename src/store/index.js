@@ -96,7 +96,7 @@ export const store = new Vuex.Store({
 					],
 				},
 			],
-			role: "admin",
+			role: "",
 		};
 	},
 	mutations: rootMutations,

@@ -43,6 +43,7 @@
 					<template v-slot:activator="{ on, attrs }">
 						<div v-bind="attrs" v-on="on">
 							<v-btn
+								class="mb-8"
 								color="success"
 								:disabled="cardSelected === ''"
 								@click="votationEnd()"

@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<img src="./../assets/logo.png" alt="logo vue" class="logo mr-2" />
-		<h1>Voto Online</h1>
+		<h1 class="resize">Voto Online</h1>
 		<v-btn
 			color="#FFEE58"
 			class="black--text last mr-4 mt-2"
@@ -78,6 +78,15 @@ h1 {
 		-ms-transition: all 500ms ease;
 		-o-transition: all 500ms ease;
 		transition: all 500ms ease;
+	}
+}
+
+@media (max-width: 340px) {
+	.resize {
+		font-size: 2.5em;
+	}
+	.logo {
+		width: 2.5em;
 	}
 }
 </style>

@@ -4,7 +4,7 @@
 			<v-container fluid class="mt-2">
 				<v-card elevation="24" outlined class="pa-4">
 					<v-card-title class="justify-center pt-0"
-						><h2>Votazioni disponibili</h2>
+						><h2 class="resize">Votazioni disponibili</h2>
 					</v-card-title>
 					<p v-if="votationsToDoEmpty === true" class="text-center mt-4 mex">
 						Non ci sono votazioni disponibili in questo momento!
@@ -26,7 +26,7 @@
 									<p class="bigger">{{ votation.description }}</p>
 								</v-card-text>
 
-								<div>
+								<div class="flex">
 									<v-dialog
 										:retain-focus="false"
 										v-model="dialogToDo"
@@ -34,12 +34,12 @@
 									>
 										<template v-slot:activator="{ on, attrs }">
 											<v-btn
-												class="mx-4"
+												class="mx-4 px-4 btn-block"
 												color="primary"
 												v-bind="attrs"
 												v-on="on"
 												@click="setVotation(votation)"
-												>Dettagli</v-btn
+												><v-icon class="mr-2">info</v-icon>Dettagli</v-btn
 											>
 										</template>
 
@@ -98,12 +98,13 @@
 									</v-dialog>
 									<v-btn
 										color="success"
-										class="px-4"
+										class="px-4 btn-block"
 										@click="
 											setVotation(votation);
 											startVotation = true;
 										"
-										>Inizia votazione</v-btn
+										><v-icon class="mr-2">play_arrow</v-icon>Inizia
+										votazione</v-btn
 									>
 								</div>
 							</v-card>
@@ -112,7 +113,7 @@
 				>
 				<v-card elevation="24" outlined class="pa-4 mt-5">
 					<v-card-title class="justify-center pt-0"
-						><h2>Votazioni già concluse</h2>
+						><h2 class="resize">Votazioni già concluse</h2>
 					</v-card-title>
 					<p v-if="votationsDoneEmpty" class="text-center mt-4 mex">
 						Non hai fatto nessuna votazione in passato.
@@ -133,60 +134,62 @@
 									<v-row align="center" class=" mx-0 mt-2"></v-row>
 									<p class="bigger">{{ votation.description }}</p>
 								</v-card-text>
-								<v-dialog
-									:retain-focus="false"
-									v-model="dialogDone"
-									width="500"
-								>
-									<template v-slot:activator="{ on, attrs }">
-										<v-btn
-											class="mx-4"
-											color="primary"
-											v-bind="attrs"
-											v-on="on"
-											@click="setVotation(votation)"
-											>Dettagli</v-btn
-										>
-									</template>
+								<div class="flex">
+									<v-dialog
+										:retain-focus="false"
+										v-model="dialogDone"
+										width="500"
+									>
+										<template v-slot:activator="{ on, attrs }">
+											<v-btn
+												class="mx-4 btn-block"
+												color="primary"
+												v-bind="attrs"
+												v-on="on"
+												@click="setVotation(votation)"
+												><v-icon class="mr-2">info</v-icon>Dettagli</v-btn
+											>
+										</template>
 
-									<v-card>
-										<v-card-title>
-											<h3>Dettagli votazione</h3>
-										</v-card-title>
+										<v-card>
+											<v-card-title>
+												<h3>Dettagli votazione</h3>
+											</v-card-title>
 
-										<v-divider></v-divider>
+											<v-divider></v-divider>
 
-										<v-card-text>
-											<ul class="mt-2">
-												<li>
-													Data di inizio:
-													<strong>
-														{{ dataFormat(selectedVotation.dateStart) }}
-													</strong>
-												</li>
-												<li>
-													Data di fine:
-													<strong
-														>{{ dataFormat(selectedVotation.dateEnd) }}
-													</strong>
-												</li>
-												<li>
-													Hai votato:
-													<strong>{{ selectedVotation.result }}</strong>
-												</li>
-											</ul>
-										</v-card-text>
+											<v-card-text>
+												<ul class="mt-2">
+													<li>
+														Data di inizio:
+														<strong>
+															{{ dataFormat(selectedVotation.dateStart) }}
+														</strong>
+													</li>
+													<li>
+														Data di fine:
+														<strong
+															>{{ dataFormat(selectedVotation.dateEnd) }}
+														</strong>
+													</li>
+													<li>
+														Hai votato:
+														<strong>{{ selectedVotation.result }}</strong>
+													</li>
+												</ul>
+											</v-card-text>
 
-										<v-divider></v-divider>
+											<v-divider></v-divider>
 
-										<v-card-actions>
-											<v-spacer></v-spacer>
-											<v-btn @click="dialogDone = false">
-												Indietro
-											</v-btn>
-										</v-card-actions>
-									</v-card>
-								</v-dialog>
+											<v-card-actions>
+												<v-spacer></v-spacer>
+												<v-btn @click="dialogDone = false">
+													Indietro
+												</v-btn>
+											</v-card-actions>
+										</v-card>
+									</v-dialog>
+								</div>
 							</v-card>
 						</v-col>
 					</v-row>
@@ -306,5 +309,25 @@ li {
 .mex {
 	color: red;
 	font-size: 20px;
+}
+
+@media (max-width: 1100px) {
+	.flex {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+	.btn-block {
+		width: 100%;
+		margin-bottom: 0.8em;
+	}
+}
+
+@media (max-width: 414px) {
+	.resize {
+		font-size: 1.05em;
+	}
 }
 </style>
