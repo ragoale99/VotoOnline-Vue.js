@@ -1,18 +1,16 @@
 import Vuex from "vuex";
 import Vue from "vue";
 import { v4 as uuidv4 } from "uuid";
+import createPersistedState from "vuex-persistedstate";
 
 import rootMutations from "./mutations.js";
 import rootActions from "./actions.js";
 import rootGetters from "./getters.js";
-/* import counterModule from './modules/counter/index.js'; */
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-	/*   modules: {
-    numbers: counterModule
-  }, */
+	plugins: [createPersistedState()],
 	state() {
 		return {
 			votations: [
