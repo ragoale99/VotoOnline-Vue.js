@@ -106,7 +106,7 @@
 									color="primary"
 									@click="addCard"
 									:disabled="selectedVotation.options.length >= 8"
-									><v-icon class="mr-2">add</v-icon>Aggiunti carta</v-btn
+									><v-icon class="mr-2">add</v-icon>Aggiungi carta</v-btn
 								>
 							</div>
 						</template>
@@ -167,7 +167,6 @@ export default {
 			return arr;
 		},
 		deleteCard(index) {
-			console.log(index);
 			this.selectedVotation.options.splice(index, 1);
 			this.url.splice(index, 1);
 			this.names.splice(index, 1);
@@ -182,8 +181,41 @@ export default {
 			this.$emit("backToMainPage");
 		},
 		submitForm() {
-			this.$refs.form.reset();
-			/* this.backToMainPage(); */
+			const optionModified = [];
+
+			for (let i = 0; i < this.names.length; i++) {
+				const nome = this.names[i];
+				if (this.file[i] === undefined) {
+					optionModified.push({
+						imagePath: this.selectedVotation.options[i].imagePath,
+						nome: nome,
+					});
+				} else {
+					optionModified.push({
+						imagePath: this.file[i].name,
+						nome: nome,
+					});
+				}
+			}
+
+			console.log(optionModified);
+			const votationModified = {
+				id: this.selectedVotation.id,
+				title: this.title,
+				description: this.description,
+				dateStart: new Date(this.dates[0]),
+				dateEnd: new Date(this.dates[1]),
+				voted: this.selectedVotation.voted,
+				result: this.selectedVotation.result,
+				options: optionModified,
+			};
+
+			this.$store.dispatch("modifyVotation", {
+				votationModified: votationModified,
+			});
+
+			this.$emit("updateList");
+			this.backToMainPage();
 		},
 	},
 	computed: {

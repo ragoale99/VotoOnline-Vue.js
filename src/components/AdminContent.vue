@@ -112,6 +112,7 @@
 			v-if="modifyVotation"
 			:selected-votation="selectedVotation"
 			@backToMainPage="backToMainPage"
+			@updateList="votationsToDo = setVotationsToDo()"
 		></modify-votation>
 	</div>
 </template>

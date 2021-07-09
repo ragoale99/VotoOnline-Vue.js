@@ -14,4 +14,11 @@ export default {
 			(votation) => votation !== payload.votation
 		);
 	},
+	modifyVotation(state, payload) {
+		let voteToChange = state.votations.find(
+			(vote) => vote.id === payload.votationModified.id
+		);
+		const ind = state.votations.indexOf(voteToChange);
+		state.votations.splice(ind, 1, payload.votationModified);
+	},
 };

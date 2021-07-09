@@ -8,4 +8,7 @@ export default {
 	deleteVotation(context, votation) {
 		context.commit("deleteVotation", votation);
 	},
+	modifyVotation(context, votationModified) {
+		context.commit("modifyVotation", votationModified);
+	},
 };
