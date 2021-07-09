@@ -1,7 +1,7 @@
 import Vuex from "vuex";
 import Vue from "vue";
 import { v4 as uuidv4 } from "uuid";
-import createPersistedState from "vuex-persistedstate";
+/* import createPersistedState from "vuex-persistedstate"; */
 
 import rootMutations from "./mutations.js";
 import rootActions from "./actions.js";
@@ -10,7 +10,7 @@ import rootGetters from "./getters.js";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-	plugins: [createPersistedState()],
+	/* 	plugins: [createPersistedState()], */
 	state() {
 		return {
 			votations: [

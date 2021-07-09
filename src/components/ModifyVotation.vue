@@ -48,6 +48,7 @@
 						<div class="flex">
 							<v-date-picker
 								v-model="dates"
+								:allowed-dates="disablePastDates"
 								range
 								elevation="10"
 							></v-date-picker>
@@ -116,11 +117,7 @@
 					</v-tooltip>
 				</div>
 				<div class="flex mt-8">
-					<v-btn
-						color="success mb-4"
-						type="submit"
-						@click="validate"
-						:disabled="!valid"
+					<v-btn color="success mb-4" type="submit" :disabled="!valid"
 						><v-icon class="mr-2">auto_fix_high</v-icon>Modifica
 						votazione</v-btn
 					>
@@ -221,8 +218,8 @@ export default {
 			this.$emit("updateList");
 			this.backToMainPage();
 		},
-		validate() {
-			console.log(this.$refs.form.validate());
+		disablePastDates(val) {
+			return val >= new Date().toISOString().substr(0, 10);
 		},
 	},
 	computed: {
