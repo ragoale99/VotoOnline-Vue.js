@@ -7,11 +7,18 @@
 			class="black--text last mr-4 mt-2"
 			elevation="10"
 			@click="logout"
+			v-if="this.$store.getters.getRole !== ''"
 		>
 			<v-icon class="mr-2">logout</v-icon>
 			<strong>Log Out</strong></v-btn
 		>
-		<v-btn class="mx-2 float-btn" fab color="#FFEE58" @click="logout">
+		<v-btn
+			class="mx-2 float-btn"
+			fab
+			color="#FFEE58"
+			@click="logout"
+			v-if="this.$store.getters.getRole !== ''"
+		>
 			<v-icon color="black">logout</v-icon>
 		</v-btn>
 	</header>
