@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-container fluid class="mt-2" v-if="!modifyVotation">
+		<v-container fluid class="mt-2" v-if="!modifyVotation && !addVotation">
 			<v-card elevation="24" outlined class="pa-4">
 				<v-card-title class="justify-center pt-0"
 					><h2 class="resize">Votazioni disponibili</h2>
@@ -95,14 +95,7 @@
 				</v-row>
 			</v-card>
 			<div class="flex-centered mt-5">
-				<v-btn
-					@click="
-						deleteVotation(selectedVotation);
-						votationsToDo = setVotationsToDo();
-						dialogToDelete = false;
-					"
-					color="success"
-					class="px-4"
+				<v-btn @click="addVotation = true" color="success" class="px-4"
 					><v-icon class="mr-2">add</v-icon>
 					Crea una nuova votazione
 				</v-btn>
@@ -111,18 +104,25 @@
 		<modify-votation
 			v-if="modifyVotation"
 			:selected-votation="selectedVotation"
-			@backToMainPage="backToMainPage"
+			@backToMainPage="modifyVotation = false"
 			@updateList="votationsToDo = setVotationsToDo()"
 		></modify-votation>
+		<add-votation
+			v-if="addVotation"
+			@updateList="votationsToDo = setVotationsToDo()"
+			@backToMainPage="addVotation = false"
+		></add-votation>
 	</div>
 </template>
 
 <script>
 import ModifyVotation from "./ModifyVotation.vue";
+import AddVotation from "./AddVotation.vue";
 
 export default {
 	components: {
 		ModifyVotation,
+		AddVotation,
 	},
 	data() {
 		return {
@@ -131,6 +131,7 @@ export default {
 			votationsToDoEmpty: false,
 			selectedVotation: "",
 			modifyVotation: false,
+			addVotation: false,
 		};
 	},
 	methods: {
@@ -155,9 +156,6 @@ export default {
 		},
 		deleteVotation(votation) {
 			this.$store.dispatch("deleteVotation", { votation: votation });
-		},
-		backToMainPage() {
-			this.modifyVotation = false;
 		},
 	},
 	computed: {

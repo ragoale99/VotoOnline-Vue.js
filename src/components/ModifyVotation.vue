@@ -31,7 +31,7 @@
 							maxlength="100"
 							:counter="100"
 							clearable
-							clear-icon="cancel"
+							clear-icon="backspace"
 							no-resize
 							rows="2"
 							prepend-icon="description"
@@ -64,7 +64,7 @@
 								class="on-top-right"
 								@click="deleteCard(index)"
 								v-if="index > 1"
-								>clear</v-icon
+								>cancel</v-icon
 							>
 							<div class="flex">
 								<v-card-title>
@@ -83,6 +83,7 @@
 								accept="image/*"
 								@change="onFileChange(index)"
 								show-size
+								:clearable="false"
 								label="Immagine (preview qui sotto)"
 								prepend-icon="image"
 							></v-file-input>
@@ -275,10 +276,10 @@ export default {
 	cursor: not-allowed;
 }
 
-.v-application .primary--text {
+/* .v-application .primary--text {
 	color: #95e7c3 !important;
 	-webkit-text-fill-color: #95e7c3 !important;
-}
+} */
 
 .float-btn {
 	display: none;

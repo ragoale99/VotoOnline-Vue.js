@@ -21,4 +21,8 @@ export default {
 		const ind = state.votations.indexOf(voteToChange);
 		state.votations.splice(ind, 1, payload.votationModified);
 	},
+
+	createVotation(state, payload) {
+		state.votations.push(payload.newVotation);
+	},
 };

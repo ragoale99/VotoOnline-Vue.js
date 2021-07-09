@@ -11,4 +11,8 @@ export default {
 	modifyVotation(context, votationModified) {
 		context.commit("modifyVotation", votationModified);
 	},
+
+	createVotation(context, newVotation) {
+		context.commit("createVotation", newVotation);
+	},
 };

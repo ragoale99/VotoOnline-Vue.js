@@ -35,6 +35,8 @@
 					</v-card-title>
 				</v-card>
 			</v-col>
+		</v-row>
+		<v-row>
 			<div class="flex mt-10">
 				<p v-if="cardSelected !== ''">
 					Stai votando: <strong>{{ cardSelected.nome }}</strong>
