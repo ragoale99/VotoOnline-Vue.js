@@ -19,7 +19,7 @@
 						<v-text-field
 							v-model="title"
 							label="Title"
-							required
+							:rules="genericRules"
 							prepend-icon="title"
 						></v-text-field>
 					</v-col>
@@ -27,7 +27,7 @@
 						<v-textarea
 							v-model="description"
 							label="Description"
-							required
+							:rules="genericRules"
 							maxlength="100"
 							:counter="100"
 							clearable
@@ -42,7 +42,7 @@
 							v-model="dateRangeText"
 							label="Date range"
 							prepend-icon="date_range"
-							required
+							:rules="genericRules"
 							readonly
 						></v-text-field>
 						<div class="flex">
@@ -74,7 +74,7 @@
 							<v-text-field
 								v-model="names[index]"
 								label="Nome"
-								required
+								:rules="genericRules"
 								prepend-icon="drive_file_rename_outline"
 							></v-text-field>
 							<v-file-input
@@ -82,7 +82,6 @@
 								accept="image/*"
 								@change="onFileChange(index)"
 								show-size
-								required
 								label="Immagine (preview qui sotto)"
 								prepend-icon="image"
 							></v-file-input>
@@ -117,9 +116,13 @@
 					</v-tooltip>
 				</div>
 				<div class="flex mt-8">
-					<v-btn color="success mb-4" type="submit"
-						><v-icon class="mr-2" :disabled="!valid">auto_fix_high</v-icon
-						>Modifica votazione</v-btn
+					<v-btn
+						color="success mb-4"
+						type="submit"
+						@click="validate"
+						:disabled="!valid"
+						><v-icon class="mr-2">auto_fix_high</v-icon>Modifica
+						votazione</v-btn
 					>
 				</div>
 			</v-form>
@@ -143,6 +146,7 @@ export default {
 			],
 			file: [],
 			url: this.inizializeUrls(),
+			genericRules: [(v) => !!v || "Il campo è obbligatorio"],
 		};
 	},
 	methods: {
@@ -170,6 +174,7 @@ export default {
 			this.selectedVotation.options.splice(index, 1);
 			this.url.splice(index, 1);
 			this.names.splice(index, 1);
+			this.file.splice(index, 1);
 		},
 		addCard() {
 			this.selectedVotation.options.push({
@@ -198,7 +203,6 @@ export default {
 				}
 			}
 
-			console.log(optionModified);
 			const votationModified = {
 				id: this.selectedVotation.id,
 				title: this.title,
@@ -216,6 +220,9 @@ export default {
 
 			this.$emit("updateList");
 			this.backToMainPage();
+		},
+		validate() {
+			console.log(this.$refs.form.validate());
 		},
 	},
 	computed: {

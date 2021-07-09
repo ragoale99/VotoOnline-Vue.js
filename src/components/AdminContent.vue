@@ -192,7 +192,7 @@ export default {
 	align-items: center;
 }
 
-@media (max-width: 1005px) {
+@media (max-width: 1100px) {
 	.flex {
 		display: flex;
 		flex-direction: column;
