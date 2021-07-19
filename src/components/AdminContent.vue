@@ -5,13 +5,12 @@
 				<v-card-title class="justify-center pt-0"
 					><h2 class="resize">Votazioni disponibili</h2>
 				</v-card-title>
-				<p v-if="votationsToDoEmpty === true" class="text-center mt-4 mex">
-					Non ci sono votazioni disponibili in questo momento! Puoi però crearne
-					una nuova!
+				<p v-if="getVotations().length === 0" class="text-center mt-4 mex">
+					Non ci sono votazioni disponibili in questo momento! Puoi però crearne una nuova!
 				</p>
-				<v-row class="mx-md-5" align="center" v-if="!votationsToDoEmpty">
+				<v-row class="mx-md-5" align="center" v-if="getVotations().length !== 0">
 					<v-col
-						v-for="votation in votationsToDo"
+						v-for="votation in getVotations()"
 						:key="votation.id"
 						cols="12"
 						:md="setNumberColums('md')"
@@ -37,11 +36,7 @@
 								>
 									<v-icon class="mr-2">settings</v-icon>Modifica</v-btn
 								>
-								<v-dialog
-									:retain-focus="false"
-									v-model="dialogToDelete"
-									width="500"
-								>
+								<v-dialog :retain-focus="false" v-model="dialogToDelete" width="500">
 									<template v-slot:activator="{ on, attrs }">
 										<v-btn
 											color="error"
@@ -54,8 +49,7 @@
 												startVotation = true;
 											"
 										>
-											<v-icon class="mr-2">clear</v-icon>Elimina
-											votazione</v-btn
+											<v-icon class="mr-2">clear</v-icon>Elimina votazione</v-btn
 										>
 									</template>
 									<v-card>
@@ -78,7 +72,6 @@
 											<v-btn
 												@click="
 													deleteVotation(selectedVotation);
-													votationsToDo = setVotationsToDo();
 													dialogToDelete = false;
 												"
 												color="error"
@@ -105,13 +98,8 @@
 			v-if="modifyVotation"
 			:selected-votation="selectedVotation"
 			@backToMainPage="modifyVotation = false"
-			@updateList="votationsToDo = setVotationsToDo()"
 		></modify-votation>
-		<add-votation
-			v-if="addVotation"
-			@updateList="votationsToDo = setVotationsToDo()"
-			@backToMainPage="addVotation = false"
-		></add-votation>
+		<add-votation v-if="addVotation" @backToMainPage="addVotation = false"></add-votation>
 	</div>
 </template>
 
@@ -127,44 +115,27 @@ export default {
 	data() {
 		return {
 			dialogToDelete: false,
-			votationsToDo: "",
-			votationsToDoEmpty: false,
 			selectedVotation: "",
 			modifyVotation: false,
 			addVotation: false,
 		};
 	},
 	methods: {
-		setVotationsToDo() {
-			const votationsToDo = this.getVotations.filter(
-				(votation) => votation.voted === false
-			);
-			if (votationsToDo.length === 0) {
-				this.votationsToDoEmpty = true;
-				return;
-			}
-			return votationsToDo;
+		getVotations() {
+			return this.$store.getters.votationsStored;
 		},
 		setVotation(votation) {
 			this.selectedVotation = votation;
 		},
 		setNumberColums(size) {
-			if (this.votationsToDo.length === 1) return 12;
-			if (this.votationsToDo.length === 2 || size === "md") return 6;
+			if (this.getVotations().length === 1) return 12;
+			if (this.getVotations().length === 2 || size === "md") return 6;
 			if (size === "lg") return 4;
 			return;
 		},
 		deleteVotation(votation) {
 			this.$store.dispatch("deleteVotation", { votation: votation });
 		},
-	},
-	computed: {
-		getVotations() {
-			return this.$store.getters.votationsStored;
-		},
-	},
-	beforeMount() {
-		this.votationsToDo = this.setVotationsToDo();
 	},
 };
 </script>

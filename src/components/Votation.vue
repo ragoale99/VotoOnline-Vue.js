@@ -7,8 +7,8 @@
 				</h1>
 				<p class="rules" @click="onShowRules()" align="center">
 					{{ !showRules ? "Apri" : "Chiudi" }} le regole da seguire per la votazione
-					<img src="assets/icons/down.png" alt="" class="dropdown-img" v-if="!showRules" />
-					<img src="assets/icons/up.png" alt="" class="dropdown-img" v-if="showRules" />
+					<img :src="getIconUrl('icons/down.png')" alt="" class="dropdown-img" v-if="!showRules" />
+					<img :src="getIconUrl('icons/up.png')" alt="" class="dropdown-img" v-if="showRules" />
 				</p>
 				<ul v-if="showRules" class="lista">
 					<li>È possibile votare <strong>una sola</strong> opzione.</li>
@@ -99,6 +99,9 @@ export default {
 			if (this.selectedVotation.options.length === 2) return 6;
 			return 4;
 		},
+		getIconUrl(image) {
+			return require("../assets/" + image);
+		},
 		getImgUrl(image) {
 			return require("../assets/images/" + image);
 		},
@@ -151,6 +154,40 @@ export default {
 	-khtml-user-select: none; /* Konqueror HTML */
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.rules {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.rules:hover {
+	cursor: pointer;
+}
+
+.dropdown-img {
+	width: 0.9em;
+	margin: 0 !important;
+	padding: 0;
+	-webkit-animation: action 0.7s infinite alternate;
+	animation: action 0.7s infinite alternate;
+}
+
+@-webkit-keyframes action {
+	0% {
+		transform: translateY(-3px);
+	}
+	100% {
+		transform: translateY(3px);
+	}
+}
+@keyframes action {
+	0% {
+		transform: translateY(-3px);
+	}
+	100% {
+		transform: translateY(3px);
+	}
 }
 
 .card-behaviour:hover,
