@@ -76,9 +76,9 @@ export const store = new Vuex.Store({
 							imagePath: "golden_retriver.jpg",
 							nome: "Golden retriever",
 						},
-						{ imagePath: "beagle.jpg", nome: "Berlusconi" },
+						{ imagePath: "beagle.jpg", nome: "Beagle" },
 						{
-							imagePath: "pitbull.jpg.",
+							imagePath: "pitbull.jpg",
 							nome: "Pitbull",
 						},
 						{

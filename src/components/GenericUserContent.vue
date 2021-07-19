@@ -17,27 +17,34 @@
 							:md="setNumberColums('md', votationsToDo)"
 							:lg="setNumberColums('lg', votationsToDo)"
 						>
-							<v-card elevation="24" shaped class="px-4 pb-4 borders">
+							<v-card
+								elevation="24"
+								shaped
+								class="px-4 pb-4 borders"
+								:class="{ future: !checkDate(votation.dateStart) }"
+							>
 								<v-card-title class="justify-center">
 									<h3>{{ votation.title }}</h3>
 								</v-card-title>
 								<v-card-text class="my-4">
-									<v-row align="center" class="mx-0 mt-2"></v-row>
-									<p class="bigger">{{ votation.description }}</p>
+									<p class="bigger" :class="{ 'future-text': !checkDate(votation.dateStart) }">
+										{{
+											!checkDate(votation.dateStart)
+												? "La votazione inizierà il " + dataFormat(votation.dateStart)
+												: votation.description
+										}}
+									</p>
 								</v-card-text>
 
-								<div class="flex">
-									<v-dialog
-										:retain-focus="false"
-										v-model="dialogToDo"
-										width="500"
-									>
+								<div class="flex buttons">
+									<v-dialog :retain-focus="false" v-model="dialogToDo" width="500">
 										<template v-slot:activator="{ on, attrs }">
 											<v-btn
 												class="mx-4 px-4 btn-block"
 												color="primary"
 												v-bind="attrs"
 												v-on="on"
+												:disabled="!checkDate(votation.dateStart)"
 												@click="setVotation(votation)"
 												><v-icon class="mr-2">info</v-icon>Dettagli</v-btn
 											>
@@ -60,22 +67,14 @@
 													</li>
 													<li>
 														Data di fine:
-														<strong
-															>{{ dataFormat(selectedVotation.dateEnd) }}
-														</strong>
+														<strong>{{ dataFormat(selectedVotation.dateEnd) }} </strong>
 													</li>
 													<li>
 														Scelte:
-														<ul
-															v-for="option in selectedVotation.options"
-															:key="option.nome"
-														>
+														<ul v-for="option in selectedVotation.options" :key="option.nome">
 															<div class="flex my-3">
 																<v-avatar height="150" width="150" class="mr-3">
-																	<img
-																		:src="getImgUrl(option.imagePath)"
-																		:alt="option.nome"
-																	/>
+																	<img :src="getImgUrl(option.imagePath)" :alt="option.nome" />
 																</v-avatar>
 																<li>
 																	<h2>{{ option.nome }}</h2>
@@ -99,12 +98,12 @@
 									<v-btn
 										color="success"
 										class="px-4 btn-block"
+										:disabled="!checkDate(votation.dateStart)"
 										@click="
 											setVotation(votation);
 											startVotation = true;
 										"
-										><v-icon class="mr-2">play_arrow</v-icon>Inizia
-										votazione</v-btn
+										><v-icon class="mr-2">play_arrow</v-icon>Inizia votazione</v-btn
 									>
 								</div>
 							</v-card>
@@ -135,11 +134,7 @@
 									<p class="bigger">{{ votation.description }}</p>
 								</v-card-text>
 								<div class="flex">
-									<v-dialog
-										:retain-focus="false"
-										v-model="dialogDone"
-										width="500"
-									>
+									<v-dialog :retain-focus="false" v-model="dialogDone" width="500">
 										<template v-slot:activator="{ on, attrs }">
 											<v-btn
 												class="mx-4 btn-block"
@@ -168,9 +163,7 @@
 													</li>
 													<li>
 														Data di fine:
-														<strong
-															>{{ dataFormat(selectedVotation.dateEnd) }}
-														</strong>
+														<strong>{{ dataFormat(selectedVotation.dateEnd) }} </strong>
 													</li>
 													<li>
 														Hai votato:
@@ -244,9 +237,7 @@ export default {
 		},
 		setVotationsToDo() {
 			/* var today = new Date();   && today <= dateEnd*/
-			const votationsToDo = this.getVotations.filter(
-				(votation) => votation.voted === false
-			);
+			const votationsToDo = this.getVotations.filter((votation) => votation.voted === false);
 			if (votationsToDo.length === 0) {
 				this.votationsToDoEmpty = true;
 				return;
@@ -255,9 +246,7 @@ export default {
 			/* const dateEnd = new Date(votation.dataEnd); */
 		},
 		setVotationsDone() {
-			const votationsDone = this.getVotations.filter(
-				(votation) => votation.voted !== false
-			);
+			const votationsDone = this.getVotations.filter((votation) => votation.voted !== false);
 			if (votationsDone.length === 0) {
 				this.votationsToDoEmpty = true;
 				return;
@@ -269,6 +258,11 @@ export default {
 			if (votations.length === 2 || size === "md") return 6;
 			if (size === "lg") return 4;
 			return;
+		},
+		checkDate(data) {
+			const today = new Date();
+			const date = new Date(data);
+			return date.getTime() <= today.getTime();
 		},
 	},
 	computed: {
@@ -289,6 +283,8 @@ export default {
 <style scoped>
 .borders {
 	border: 1px solid rgb(179, 179, 179);
+	min-height: 14em !important;
+	position: relative;
 }
 
 li {
@@ -309,6 +305,21 @@ li {
 .mex {
 	color: red;
 	font-size: 20px;
+}
+
+.future-text {
+	font-size: 22px;
+	font-weight: bold;
+	color: rgb(197, 27, 27) !important;
+}
+
+.future {
+	background-color: rgb(97, 97, 97);
+}
+
+.buttons {
+	position: absolute;
+	bottom: 1em;
 }
 
 @media (max-width: 1100px) {
