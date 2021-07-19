@@ -1,6 +1,34 @@
 <template>
 	<v-container class="mt-4">
 		<v-row class="mx-md-5" align="center">
+			<v-col>
+				<h1 align="center">
+					Votazione: <strong>{{ selectedVotation.title }}</strong>
+				</h1>
+				<p class="rules" @click="onShowRules()" align="center">
+					{{ !showRules ? "Apri" : "Chiudi" }} le regole da seguire per la votazione
+					<img src="assets/icons/down.png" alt="" class="dropdown-img" v-if="!showRules" />
+					<img src="assets/icons/up.png" alt="" class="dropdown-img" v-if="showRules" />
+				</p>
+				<ul v-if="showRules" class="lista">
+					<li>È possibile votare <strong>una sola</strong> opzione.</li>
+					<li>
+						Per votare è necessario fare un
+						<strong> click (da PC)</strong> o un <strong> tap (da cellulare)</strong> sull'opzione
+						da votare. Si può fare nuovamente la stessa operazione sulla carta scelta per
+						<strong>annulare</strong> il voto e sceglierne un'altra.
+					</li>
+					<li>
+						Una volta selezionata la carta da votare, cliccare sul bottone
+						<strong> "Termina votazione"</strong>. A questo punto si aprià una finestra in cui si
+						potrà confermare la votazione o tornare indietro. Tale bottone rimarrà
+						<strong> disabilitato </strong> fino a che non si avrà fatto una scelta.
+					</li>
+				</ul>
+			</v-col>
+		</v-row>
+
+		<v-row class="mx-md-5" align="center">
 			<v-col
 				v-for="option in selectedVotation.options"
 				:key="option.nome"
@@ -19,10 +47,7 @@
 					}"
 					tabindex="0"
 					:ripple="false"
-					@click="
-						(cardSelected === '' || cardSelected === option) &&
-							setCardSelected(option)
-					"
+					@click="(cardSelected === '' || cardSelected === option) && setCardSelected(option)"
 				>
 					<div class="flex">
 						<v-avatar height="150" width="150" class="mr-3 on-top">
@@ -66,6 +91,7 @@ export default {
 	data() {
 		return {
 			cardSelected: "",
+			showRules: false,
 		};
 	},
 	methods: {
@@ -87,6 +113,9 @@ export default {
 				}
 			}
 			return false;
+		},
+		onShowRules() {
+			this.showRules = !this.showRules;
 		},
 		votationEnd() {
 			this.$store.dispatch("changeVotation", {

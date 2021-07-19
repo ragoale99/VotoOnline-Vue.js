@@ -24,7 +24,9 @@
 								:class="{ future: !checkDate(votation.dateStart) }"
 							>
 								<v-card-title class="justify-center">
-									<h3>{{ votation.title }}</h3>
+									<h3 :class="{ 'future-title': !checkDate(votation.dateStart) }">
+										{{ votation.title }}
+									</h3>
 								</v-card-title>
 								<v-card-text class="my-4">
 									<p class="bigger" :class="{ 'future-text': !checkDate(votation.dateStart) }">
@@ -313,6 +315,10 @@ li {
 	color: rgb(197, 27, 27) !important;
 }
 
+.future-title {
+	color: grey;
+}
+
 .future {
 	background-color: rgb(97, 97, 97);
 }
@@ -323,6 +329,11 @@ li {
 }
 
 @media (max-width: 1100px) {
+	.buttons {
+		position: static;
+		bottom: 1em;
+	}
+
 	.flex {
 		display: flex;
 		flex-direction: column;
