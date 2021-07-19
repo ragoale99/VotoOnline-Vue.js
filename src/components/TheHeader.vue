@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<img src="./../assets/logo.png" alt="logo vue" class="logo mr-2" />
-		<h1 class="resize">Voto Online</h1>
+		<h1 class="resize"><strong>VotoOnline</strong></h1>
 		<v-btn
 			color="#FFEE58"
 			class="black--text last mr-4 mt-2"
@@ -10,7 +10,7 @@
 			v-if="this.$store.getters.getRole !== ''"
 		>
 			<v-icon class="mr-2">logout</v-icon>
-			<strong>Log Out</strong></v-btn
+			<strong>Logout</strong></v-btn
 		>
 		<v-btn
 			class="mx-2 float-btn"

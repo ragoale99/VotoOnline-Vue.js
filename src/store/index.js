@@ -16,87 +16,119 @@ export const store = new Vuex.Store({
 			votations: [
 				{
 					id: uuidv4(),
-					title: "Comunali",
-					description: "Votazione per la scelta del sindaco di Rubano",
+					title: "Piatti italiani",
+					description: "Votazione per il piatto italiano più buono",
 					dateStart: new Date(),
-					dateEnd: new Date(),
-					voted: false,
-					result: "",
-					options: [
-						{ imagePath: "lega.jpg", nome: "Lega Nord" },
-						{
-							imagePath: "potere_al_popolo.jpg",
-							nome: "Potere al popolo!",
-						},
-						{
-							imagePath: "giovani_democratici.png",
-							nome: "Giovani democratici",
-						},
-						{
-							imagePath: "italia_viva.png",
-							nome: "Italia Viva",
-						},
-						{ imagePath: "berla.jpg", nome: "Berlusconi" },
-						{
-							imagePath: "fratelli_italia.png",
-							nome: "Fratelli d'Italia",
-						},
-					],
-				},
-				{
-					id: uuidv4(),
-					title: "Parlamentari",
-					description: "Votazione bellissima",
-					dateStart: new Date(),
-					dateEnd: new Date(),
-					voted: false,
-					result: "",
-					options: [
-						{
-							imagePath: "fratelli_italia.png",
-							nome: "Fratelli d'Italia",
-						},
-						{
-							imagePath: "movimento5stelle.jpg",
-							nome: "Movimento 5 Stelle",
-						},
-					],
-				},
-				{
-					id: uuidv4(),
-					title: "Regionali",
-					description: "Votazione per la scelta del capo della regione",
-					dateStart: new Date(),
-					dateEnd: new Date(),
+					dateEnd: new Date("2022, 04 ,10"),
 					voted: true,
-					result: "Lega Nord",
+					result: "Pizza",
 					options: [
-						{ imagePath: "lega.jpg", nome: "Lega Nord" },
+						{ imagePath: "vue.png", nome: "Pizza" },
 						{
-							imagePath: "potere_al_popolo.jpg",
-							nome: "Potere al popolo!",
+							imagePath: "angular.png",
+							nome: "Pizza",
+						},
+					],
+				},
+				{
+					id: uuidv4(),
+					title: "Frameworks",
+					description:
+						"Votazione per la scelta del miglior framework per lo sviluppo front-end di applicazioni web",
+					dateStart: new Date("2020, 04, 10"),
+					dateEnd: new Date("2022, 04 ,10"),
+					voted: false,
+					result: "",
+					options: [
+						{
+							imagePath: "vue.png",
+							nome: "Vue.js",
 						},
 						{
-							imagePath: "cambiamo.png",
-							nome: "Cambiamo!",
+							imagePath: "angular.png",
+							nome: "Angular",
 						},
 						{
-							imagePath: "italia_viva.png",
-							nome: "Italia Viva",
+							imagePath: "react.png",
+							nome: "React",
 						},
-						{ imagePath: "berla.jpg", nome: "Berlusconi" },
+					],
+				},
+				{
+					id: uuidv4(),
+					title: "Cani",
+					description: "Votazione per il cane più bello",
+					dateStart: new Date("2020, 04, 10"),
+					dateEnd: new Date("2022, 04, 10"),
+					voted: false,
+					result: "",
+					options: [
+						{ imagePath: "pastore_tedesco.jpg", nome: "Pastore tedesco" },
 						{
-							imagePath: "fratelli_italia.png",
-							nome: "Fratelli d'Italia",
+							imagePath: "doberman.jpg",
+							nome: "Doberman",
 						},
 						{
-							imagePath: "movimento5stelle.jpg",
-							nome: "Movimento 5 Stelle",
+							imagePath: "labrador.jpg",
+							nome: "Labrador",
+						},
+						{
+							imagePath: "golden_retriver.jpg",
+							nome: "Golden retriever",
+						},
+						{ imagePath: "beagle.jpg", nome: "Berlusconi" },
+						{
+							imagePath: "pitbull.jpg.",
+							nome: "Pitbull",
+						},
+						{
+							imagePath: "bassotto.jpg",
+							nome: "Bassotto",
+						},
+						{
+							imagePath: "rottweiler.jpg",
+							nome: "Rottweiler",
+						},
+					],
+				},
+				{
+					id: uuidv4(),
+					title: "Mete estive",
+					description: "Votazione per la meta estiva preferita dagli italiani",
+					dateStart: new Date("2022, 04, 10"),
+					dateEnd: new Date("2022, 05, 10"),
+					voted: false,
+					result: "",
+					options: [
+						{ imagePath: "pastore_tedesco.jpg", nome: "Pastore tedesco" },
+						{
+							imagePath: "doberman.jpg",
+							nome: "Doberman",
+						},
+						{
+							imagePath: "labrador.jpg",
+							nome: "Labrador",
+						},
+					],
+				},
+				{
+					id: uuidv4(),
+					title: "Gatti",
+					description: "Votazione per il gatto più bello",
+					dateStart: new Date("2020, 04, 10"),
+					dateEnd: new Date("2022, 04, 10"),
+					voted: true,
+					result: "Persiano",
+					options: [
+						{ imagePath: "pastore_tedesco.jpg", nome: "Pastore tedesco" },
+						{
+							imagePath: "doberman.jpg",
+							nome: "Persiano",
 						},
 					],
 				},
 			],
-			role: "",
+			role: "genericUser",
 		};
 	},
 	mutations: rootMutations,
