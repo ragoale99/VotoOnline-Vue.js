@@ -8,7 +8,7 @@
 				<p v-if="getVotations().length === 0" class="text-center mt-4 mex">
 					Non ci sono votazioni disponibili in questo momento! Puoi però crearne una nuova!
 				</p>
-				<v-row class="mx-md-5" align="center" v-if="getVotations().length !== 0">
+				<v-row class="mx-md-5" align="stretch" v-if="getVotations().length !== 0">
 					<v-col
 						v-for="votation in getVotations()"
 						:key="votation.id"
@@ -16,11 +16,11 @@
 						:md="setNumberColums('md')"
 						:lg="setNumberColums('lg')"
 					>
-						<v-card elevation="24" shaped class="px-4 pb-4 borders">
+						<v-card elevation="24" shaped class="px-4 pb-4 borders" height="100%">
 							<v-card-title class="justify-center">
 								<h3>{{ votation.title }}</h3>
 							</v-card-title>
-							<v-card-text class="my-4">
+							<v-card-text class="my-5 ">
 								<v-row align="center" class="mx-0 mt-2"></v-row>
 								<p class="bigger">{{ votation.description }}</p>
 							</v-card-text>
@@ -143,7 +143,7 @@ export default {
 <style scoped>
 .borders {
 	border: 1px solid rgb(179, 179, 179);
-	min-height: 14em !important;
+	/* 	min-height: 14em !important; */
 	position: relative;
 }
 

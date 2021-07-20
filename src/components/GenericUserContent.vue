@@ -9,7 +9,7 @@
 					<p v-if="votationsToDoEmpty === true" class="text-center mt-4 mex">
 						Non ci sono votazioni disponibili in questo momento!
 					</p>
-					<v-row class="mx-md-5" align="center" v-if="!votationsToDoEmpty">
+					<v-row class="mx-md-5" align="stretch" v-if="!votationsToDoEmpty">
 						<v-col
 							v-for="votation in votationsToDo"
 							:key="votation.id"
@@ -21,6 +21,7 @@
 								elevation="24"
 								shaped
 								class="px-4 pb-4 borders"
+								height="100%"
 								:class="{ future: !checkDate(votation.dateStart) }"
 							>
 								<v-card-title class="justify-center">
@@ -28,7 +29,7 @@
 										{{ votation.title }}
 									</h3>
 								</v-card-title>
-								<v-card-text class="my-4">
+								<v-card-text class="mb-6">
 									<p class="bigger" :class="{ 'future-text': !checkDate(votation.dateStart) }">
 										{{
 											!checkDate(votation.dateStart)
@@ -119,7 +120,7 @@
 					<p v-if="votationsDoneEmpty" class="text-center mt-4 mex">
 						Non hai fatto nessuna votazione in passato.
 					</p>
-					<v-row class="mx-md-5" align="center" v-if="!votationsDoneEmpty">
+					<v-row class="mx-md-5" align="stretch" v-if="!votationsDoneEmpty">
 						<v-col
 							v-for="votation in votationsDone"
 							:key="votation.id"
@@ -127,11 +128,11 @@
 							:md="setNumberColums('md', votationsDone)"
 							:lg="setNumberColums('lg', votationsDone)"
 						>
-							<v-card elevation="24" outlined shaped class="px-4 pb-4  borders">
+							<v-card elevation="24" outlined shaped class="px-4 pb-4 borders" height="100%">
 								<v-card-title class="justify-center"
 									><h3>{{ votation.title }}</h3>
 								</v-card-title>
-								<v-card-text class="my-4">
+								<v-card-text class="mb-6">
 									<v-row align="center" class=" mx-0 mt-2"></v-row>
 									<p class="bigger">{{ votation.description }}</p>
 								</v-card-text>
@@ -285,7 +286,6 @@ export default {
 <style scoped>
 .borders {
 	border: 1px solid rgb(179, 179, 179);
-	min-height: 14em !important;
 	position: relative;
 }
 
