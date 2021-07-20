@@ -97,7 +97,10 @@ export default {
 	methods: {
 		setNumberColums() {
 			if (this.selectedVotation.options.length === 2) return 6;
-			return 4;
+			else if (this.selectedVotation.options.length === 3) return 4;
+			else if (this.selectedVotation.options.length === 4) return 3;
+			else if (this.selectedVotation.options.length === 6) return 4;
+			return 3;
 		},
 		getIconUrl(image) {
 			return require("../assets/" + image);

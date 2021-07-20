@@ -75,7 +75,7 @@
 														Scelte:
 														<ul v-for="option in selectedVotation.options" :key="option.nome">
 															<div class="flex my-3">
-																<v-avatar height="150" width="150" class="mr-3">
+																<v-avatar height="150" width="150" class="mr-3 mb-1">
 																	<img :src="getImgUrl(option.imagePath)" :alt="option.nome" />
 																</v-avatar>
 																<li>
@@ -139,7 +139,7 @@
 									<v-dialog :retain-focus="false" v-model="dialogDone" width="500">
 										<template v-slot:activator="{ on, attrs }">
 											<v-btn
-												class="mx-4 btn-block"
+												class="mx-4 btn-block buttons"
 												color="primary"
 												v-bind="attrs"
 												v-on="on"
@@ -331,7 +331,7 @@ li {
 @media (max-width: 1100px) {
 	.buttons {
 		position: static;
-		bottom: 1em;
+		margin: 0;
 	}
 
 	.flex {

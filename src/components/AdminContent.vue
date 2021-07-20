@@ -24,7 +24,7 @@
 								<v-row align="center" class="mx-0 mt-2"></v-row>
 								<p class="bigger">{{ votation.description }}</p>
 							</v-card-text>
-							<div class="flex">
+							<div class="flex buttons">
 								<v-btn
 									color="primary mx-4"
 									depressed
@@ -143,6 +143,8 @@ export default {
 <style scoped>
 .borders {
 	border: 1px solid rgb(179, 179, 179);
+	min-height: 14em !important;
+	position: relative;
 }
 
 .bigger {
@@ -161,7 +163,16 @@ export default {
 	align-items: center;
 }
 
+.buttons {
+	position: absolute;
+	bottom: 1em;
+}
+
 @media (max-width: 1100px) {
+	.buttons {
+		position: static;
+		bottom: 0em;
+	}
 	.flex {
 		display: flex;
 		flex-direction: column;
