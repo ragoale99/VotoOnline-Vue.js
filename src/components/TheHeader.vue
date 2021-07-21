@@ -43,7 +43,7 @@ header {
 	align-items: center;
 	flex-direction: row;
 	color: black;
-	box-shadow: 2px 2px 2px #95e7c3;
+	box-shadow: 2px 2px 3px 3px #95e7c37a;
 	border-radius: 2px;
 }
 
