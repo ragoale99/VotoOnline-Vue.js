@@ -66,20 +66,66 @@
 				<p v-if="cardSelected !== ''">
 					Stai votando: <strong>{{ cardSelected.nome }}</strong>
 				</p>
-				<v-tooltip top :disabled="cardSelected !== ''">
-					<template v-slot:activator="{ on, attrs }">
-						<div v-bind="attrs" v-on="on">
-							<v-btn
-								class="mb-8"
-								color="success"
-								:disabled="cardSelected === ''"
-								@click="votationEnd()"
-								>Termina votazione</v-btn
-							>
-						</div>
+				<v-dialog :retain-focus="false" v-model="dialogToVote" width="500">
+					<template v-slot:activator="{ on: dialog }">
+						<v-tooltip top :disabled="cardSelected !== ''">
+							<template v-slot:activator="{ on: tooltip }">
+								<div v-on="{ ...tooltip }">
+									<v-btn
+										class="mb-8"
+										color="success"
+										:disabled="cardSelected === ''"
+										v-on="{ ...dialog }"
+										>Termina votazione</v-btn
+									>
+								</div>
+							</template>
+							<span>Bottone disabilitato! Seleziona una carta per votarla.</span>
+						</v-tooltip>
 					</template>
-					<span>Bottone disabilitato! Seleziona una carta per votarla.</span>
-				</v-tooltip>
+					<v-card>
+						<v-card-title>
+							<h3>Vuoi terminare la votazione?</h3>
+						</v-card-title>
+
+						<v-divider></v-divider>
+
+						<v-card-text class="mt-4">
+							<h3>Stai per votare:</h3>
+							<div class="flex mt-3">
+								<div class="flex">
+									<img
+										v-if="cardSelected"
+										:src="getImgUrl(cardSelected.imagePath)"
+										class="rounded-circle"
+										:alt="cardSelected.nome"
+									/>
+								</div>
+								<h2 class="mt-4">
+									<strong>{{ cardSelected.nome }}</strong>
+								</h2>
+							</div>
+						</v-card-text>
+						<v-divider></v-divider>
+
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn @click="dialogToVote = false" class="px-4">
+								Indietro
+							</v-btn>
+							<v-btn
+								@click="
+									votationEnd();
+									dialogToVote = false;
+								"
+								color="success"
+								class="px-8"
+							>
+								Vota
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+				</v-dialog>
 			</div>
 		</v-row>
 	</v-container>
@@ -90,6 +136,7 @@ export default {
 	props: ["selectedVotation"],
 	data() {
 		return {
+			dialogToVote: false,
 			cardSelected: "",
 			showRules: false,
 		};
@@ -111,6 +158,7 @@ export default {
 		setCardSelected(option) {
 			if (this.cardSelected === "") this.cardSelected = option;
 			else this.cardSelected = "";
+			console.log(this.cardSelected);
 		},
 		checkSelected(option) {
 			if (this.cardSelected !== "") {
@@ -141,7 +189,7 @@ export default {
 }
 
 .borders {
-	border: 1px solid rgb(179, 179, 179);
+	border: 1px solid rgb(143, 143, 143);
 }
 
 .flex {

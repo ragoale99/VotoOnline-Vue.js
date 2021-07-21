@@ -2,30 +2,62 @@
 	<header>
 		<img src="./../assets/logo.png" alt="logo vue" class="logo mr-2" />
 		<h1 class="resize"><strong>VotoOnline</strong></h1>
-		<v-btn
-			color="#FFEE58"
-			class="black--text last mr-4 mt-2"
-			elevation="10"
-			@click="logout"
-			v-if="this.$store.getters.getRole !== ''"
-		>
-			<v-icon class="mr-2">logout</v-icon>
-			<strong>Logout</strong></v-btn
-		>
-		<v-btn
-			class="mx-2 float-btn"
-			fab
-			color="#FFEE58"
-			@click="logout"
-			v-if="this.$store.getters.getRole !== ''"
-		>
-			<v-icon color="black">logout</v-icon>
-		</v-btn>
+		<v-dialog :retain-focus="false" v-model="dialogToLogout" width="500">
+			<template v-slot:activator="{ on, attrs }" v-if="this.$store.getters.getRole !== ''">
+				<v-btn
+					color="#FFEE58"
+					class="black--text last mr-4 mt-1"
+					elevation="10"
+					v-bind="attrs"
+					v-on="on"
+				>
+					<v-icon class="mr-2">logout</v-icon>
+					<strong>Logout</strong></v-btn
+				>
+				<v-btn class="mx-2 float-btn" fab color="#FFEE58" v-bind="attrs" v-on="on">
+					<v-icon color="black">logout</v-icon>
+				</v-btn>
+			</template>
+			<v-card>
+				<v-card-title>
+					<h3>Sicuro di voler effettuare il logout?</h3>
+				</v-card-title>
+
+				<v-divider></v-divider>
+
+				<v-card-text class="mt-4 bigger"
+					><h3>Verrai riportato alla pagina di login.</h3></v-card-text
+				>
+				<v-divider></v-divider>
+
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn @click="dialogToLogout = false" class="px-4">
+						Indietro
+					</v-btn>
+					<v-btn
+						@click="
+							logout();
+							dialogToLogout = false;
+						"
+						color="error"
+						class="px-4"
+					>
+						Esci
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
 	</header>
 </template>
 
 <script>
 export default {
+	data() {
+		return {
+			dialogToLogout: false,
+		};
+	},
 	methods: {
 		logout() {
 			this.$store.dispatch("setRuolo", { role: "" });
