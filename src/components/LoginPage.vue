@@ -2,24 +2,28 @@
 	<v-card
 		outlined
 		shaped
-		:class="[
-			'mx-auto',
-			'my-12',
-			'elevation-card',
-			{ err: !valid && touched, succ: valid },
-		]"
+		:class="['mx-auto', 'my-12', 'elevation-card', { err: !valid && touched, succ: valid }]"
 		:loading="loading"
 		max-width="90%"
 		width="500"
 	>
-		<v-img height="100" contain src="./../assets/key.png" class="mt-2"></v-img>
+		<v-img height="100" v-if="!touched" contain src="./../assets/key.png" class="mt-2"></v-img>
+		<v-img
+			height="100"
+			v-if="!valid && touched"
+			contain
+			src="./../assets/key_red.png"
+			class="mt-2"
+		></v-img>
+		<v-img
+			height="100"
+			v-if="valid && touched"
+			contain
+			src="./../assets/key_green.png"
+			class="mt-2"
+		></v-img>
 		<v-card-title class="justify-center">Accedi per votare online</v-card-title>
-		<v-form
-			ref="form"
-			v-model="valid"
-			class="form mx-auto"
-			@submit.prevent="submitForm"
-		>
+		<v-form ref="form" v-model="valid" class="form mx-auto" @submit.prevent="submitForm">
 			<v-text-field
 				v-model="email"
 				:rules="emailRules"
@@ -45,11 +49,7 @@
 			></v-text-field>
 			<v-tooltip top :disabled="valid">
 				<template v-slot:activator="{ on, attrs }">
-					<div
-						:class="['container-flex', 'my-4', { disab: !valid }]"
-						v-bind="attrs"
-						v-on="on"
-					>
+					<div :class="['container-flex', 'my-4', { disab: !valid }]" v-bind="attrs" v-on="on">
 						<v-btn
 							class="mx-auto px-8"
 							:disabled="!valid"
@@ -82,12 +82,8 @@ export default {
 			password: "",
 			passRules: [
 				(v) => !!v || "La password è obbligatoria",
-				(v) =>
-					(v && v.length <= 10) ||
-					"La password non può avere più di 10 caratteri",
-				(v) =>
-					(v && v.length >= 4) ||
-					"La password deve essere di almeno 4 caratteri",
+				(v) => (v && v.length <= 10) || "La password non può avere più di 10 caratteri",
+				(v) => (v && v.length >= 4) || "La password deve essere di almeno 4 caratteri",
 			],
 			email: "",
 			emailRules: [
