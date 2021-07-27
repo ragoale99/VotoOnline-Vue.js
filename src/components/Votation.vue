@@ -28,7 +28,7 @@
 			</v-col>
 		</v-row>
 
-		<v-row class="mx-md-5" align="center">
+		<v-row class="mx-md-5" align="stretch">
 			<v-col
 				v-for="option in selectedVotation.options"
 				:key="option.nome"
@@ -39,7 +39,9 @@
 				<v-card
 					elevation="24"
 					shaped
-					class="px-4 pb-4 borders mt-16 disable-select "
+					class="px-4 pb-4 borders mt-16 disable-select"
+					height="12em"
+					max-height="75%"
 					:class="{
 						selected: checkSelected(option),
 						'card-behaviour': cardSelected === '',
@@ -243,14 +245,14 @@ export default {
 
 .card-behaviour:hover,
 .selected {
-	transform: scale(1.03);
-	background-color: rgba(236, 174, 234, 0.979);
+	transform: scale(1.05);
+	background-color: rgb(236, 174, 234);
 	color: rgb(0, 0, 0);
-	box-shadow: 5px 5px 10px rgba(131, 85, 131, 0.644);
+	box-shadow: 5px 5px 10px 5px rgb(131, 85, 131);
 }
 
 .not-selected {
-	background-color: rgba(230, 230, 230, 0.315);
+	background-color: rgb(122, 122, 122);
 	cursor: default;
 }
 </style>

@@ -81,12 +81,11 @@ header {
 	align-items: center;
 	flex-direction: row;
 	color: black;
-	box-shadow: 2px 2px 3px 3px #9ce7958e;
 	border-radius: 2px;
 }
 
 h1 {
-	font-size: 2.8em;
+	font-size: 2.5em;
 }
 
 .logo {
