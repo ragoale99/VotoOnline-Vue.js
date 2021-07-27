@@ -2,8 +2,8 @@
 	<header>
 		<img src="./../assets/logo.png" alt="logo vue" class="logo mr-2" />
 		<h1 class="resize"><strong>VotoOnline</strong></h1>
-		<v-dialog :retain-focus="false" v-model="dialogToLogout" width="500">
-			<template v-slot:activator="{ on, attrs }" v-if="this.$store.getters.getRole !== ''">
+		<v-dialog :retain-focus="false" v-model="dialogToLogout" width="500" v-if="getRole !== ''">
+			<template v-slot:activator="{ on, attrs }">
 				<v-btn
 					color="#FFEE58"
 					class="black--text last mr-4 mt-1"
@@ -63,19 +63,25 @@ export default {
 			this.$store.dispatch("setRuolo", { role: "" });
 		},
 	},
+	computed: {
+		getRole() {
+			console.log(this.$store.getters.getRole !== "");
+			return this.$store.getters.getRole;
+		},
+	},
 };
 </script>
 
 <style scoped>
 header {
 	height: 3em;
-	background-color: #95e7c3;
+	background-color: #9ce795;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
 	color: black;
-	box-shadow: 2px 2px 3px 3px #95e7c37a;
+	box-shadow: 2px 2px 3px 3px #9ce7958e;
 	border-radius: 2px;
 }
 

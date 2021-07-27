@@ -164,9 +164,4 @@ export default {
 .disab {
 	cursor: not-allowed;
 }
-
-.v-application .primary--text {
-	color: #95e7c3 !important;
-	-webkit-text-fill-color: #95e7c3 !important;
-}
 </style>

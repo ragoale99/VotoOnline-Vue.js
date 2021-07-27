@@ -12,7 +12,7 @@
 				<v-row>
 					<v-col cols="12">
 						<div class="flex my-4">
-							<h2>Crea una nuova votazione</h2>
+							<h2>Aggiungi una votazione</h2>
 						</div>
 					</v-col>
 					<v-col cols="12">
@@ -57,10 +57,7 @@
 					</v-col>
 					<v-col v-for="(card, index) in cards" :key="index" cols="12">
 						<v-card elevation="24" class="pa-4">
-							<v-icon
-								class="on-top-right"
-								@click="deleteCard(index)"
-								v-if="index > 1"
+							<v-icon class="on-top-right" @click="deleteCard(index)" v-if="index > 1"
 								>cancel</v-icon
 							>
 							<div class="flex">
@@ -96,23 +93,13 @@
 				<div class="flex mt-4">
 					<v-tooltip top :disabled="cards.length < 8">
 						<template v-slot:activator="{ on, attrs }">
-							<div
-								v-bind="attrs"
-								v-on="on"
-								:class="{ disab: cards.length >= 8 }"
-							>
-								<v-btn
-									color="primary"
-									@click="addCard"
-									:disabled="cards.length >= 8"
+							<div v-bind="attrs" v-on="on" :class="{ disab: cards.length >= 8 }">
+								<v-btn color="primary" @click="addCard" :disabled="cards.length >= 8"
 									><v-icon class="mr-2">add</v-icon>Aggiungi carta</v-btn
 								>
 							</div>
 						</template>
-						<span
-							>Bottone disabilitato! Non si possono inserire più di 8
-							scelte.</span
-						>
+						<span>Bottone disabilitato! Non si possono inserire più di 8 scelte.</span>
 					</v-tooltip>
 				</div>
 				<div class="flex mt-8">

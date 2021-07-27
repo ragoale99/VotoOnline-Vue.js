@@ -128,7 +128,7 @@ export const store = new Vuex.Store({
 					],
 				},
 			],
-			role: "genericUser",
+			role: "admin",
 		};
 	},
 	mutations: rootMutations,
