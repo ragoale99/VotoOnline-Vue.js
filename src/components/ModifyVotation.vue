@@ -1,18 +1,18 @@
 <template>
 	<div>
 		<div class="flex back" @click="backToMainPage">
-			<v-icon class="mr-1" large color="blue">arrow_back</v-icon>
-			<h3><strong>Indietro</strong></h3>
+			<v-icon large color="#4bca25">arrow_back</v-icon>
+			<h2><strong>Indietro</strong></h2>
 		</div>
-		<v-btn class="mx-2 float-btn" fab color="#2296f3" @click="backToMainPage">
+		<v-btn class="mx-2 float-btn" fab color="#4bca25" @click="backToMainPage">
 			<v-icon color="black" large>arrow_back</v-icon>
 		</v-btn>
-		<v-container class="mt-2 contain">
+		<v-container class="mt-2 contain mb-3">
 			<v-form v-model="valid" @submit.prevent="submitForm" ref="form">
 				<v-row>
 					<v-col cols="12">
 						<div class="flex my-4">
-							<h2>Modifica votazione</h2>
+							<h2><strong>Modifica votazione</strong></h2>
 						</div>
 					</v-col>
 					<v-col cols="12">
@@ -54,16 +54,16 @@
 							></v-date-picker>
 						</div>
 					</v-col>
-					<v-col
-						v-for="(option, index) in selectedVotation.options"
-						:key="option.nome"
-						cols="12"
-					>
+					<v-row>
+						<v-col cols="12">
+							<div class="flex my-4">
+								<h2>Modifica opzioni</h2>
+							</div>
+						</v-col>
+					</v-row>
+					<v-col v-for="(option, index) in selectedVotation.options" :key="option.nome" cols="12">
 						<v-card elevation="24" class="pa-4">
-							<v-icon
-								class="on-top-right"
-								@click="deleteCard(index)"
-								v-if="index > 1"
+							<v-icon class="on-top-right" @click="deleteCard(index)" v-if="index > 1"
 								>cancel</v-icon
 							>
 							<div class="flex">
@@ -111,16 +111,12 @@
 								>
 							</div>
 						</template>
-						<span
-							>Bottone disabilitato! Non si possono inserire più di 8
-							scelte.</span
-						>
+						<span>Bottone disabilitato! Non si possono inserire più di 8 scelte.</span>
 					</v-tooltip>
 				</div>
 				<div class="flex mt-8">
 					<v-btn color="success mb-4" type="submit" :disabled="!valid"
-						><v-icon class="mr-2">auto_fix_high</v-icon>Modifica
-						votazione</v-btn
+						><v-icon class="mr-2">auto_fix_high</v-icon>Modifica votazione</v-btn
 					>
 				</div>
 			</v-form>
@@ -235,6 +231,8 @@ export default {
 .contain {
 	width: 50em;
 	max-width: 90%;
+	background-color: rgb(0, 0, 0);
+	border-radius: 6px;
 }
 
 .flex {
@@ -254,7 +252,7 @@ export default {
 	position: absolute;
 	top: 1em;
 	left: 1em;
-	color: #2296f3;
+	color: #4bca25;
 }
 
 .back:hover {
