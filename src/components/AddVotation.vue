@@ -7,12 +7,12 @@
 		<v-btn class="mx-2 float-btn" fab color="#2296f3" @click="backToMainPage">
 			<v-icon color="black" large>arrow_back</v-icon>
 		</v-btn>
-		<v-container class="mt-2 contain">
+		<v-container class="mt-2 contain mb-3">
 			<v-form v-model="valid" @submit.prevent="submitForm" ref="form">
 				<v-row>
 					<v-col cols="12">
 						<div class="flex my-4">
-							<h2>Aggiungi una votazione</h2>
+							<h2><strong>Aggiungi una votazione</strong></h2>
 						</div>
 					</v-col>
 					<v-col cols="12">
@@ -55,6 +55,13 @@
 							></v-date-picker>
 						</div>
 					</v-col>
+					<v-row>
+						<v-col cols="12">
+							<div class="flex my-4">
+								<h2>Inserisci opzioni</h2>
+							</div>
+						</v-col>
+					</v-row>
 					<v-col v-for="(card, index) in cards" :key="index" cols="12">
 						<v-card elevation="24" class="pa-4">
 							<v-icon class="on-top-right" @click="deleteCard(index)" v-if="index > 1"
@@ -203,6 +210,8 @@ export default {
 .contain {
 	width: 50em;
 	max-width: 90%;
+	background-color: rgb(0, 0, 0);
+	border-radius: 6px;
 }
 
 .flex {
