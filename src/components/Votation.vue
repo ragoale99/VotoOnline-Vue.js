@@ -58,7 +58,9 @@
 					</div>
 
 					<v-card-title class="justify-center">
-						<h3>{{ option.nome }}</h3>
+						<h3>
+							<strong>{{ option.nome }}</strong>
+						</h3>
 					</v-card-title>
 				</v-card>
 			</v-col>
