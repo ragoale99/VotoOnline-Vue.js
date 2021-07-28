@@ -18,8 +18,8 @@ export const store = new Vuex.Store({
 					id: uuidv4(),
 					title: "Piatti italiani",
 					description: "Votazione per il piatto italiano più buono",
-					dateStart: new Date(),
-					dateEnd: new Date("2022, 04 ,10"),
+					dateStart: new Date("2020, 04, 10"),
+					dateEnd: new Date("2021, 04 ,10"),
 					voted: true,
 					result: "Pizza",
 					options: [
@@ -36,7 +36,7 @@ export const store = new Vuex.Store({
 					description:
 						"Votazione per la scelta del miglior framework per lo sviluppo front-end di applicazioni web",
 					dateStart: new Date("2020, 04, 10"),
-					dateEnd: new Date("2022, 04 ,10"),
+					dateEnd: new Date("2022, 07 ,29"),
 					voted: false,
 					result: "",
 					options: [
@@ -59,7 +59,7 @@ export const store = new Vuex.Store({
 					title: "Cani",
 					description: "Votazione per il cane più bello",
 					dateStart: new Date("2020, 04, 10"),
-					dateEnd: new Date("2022, 04, 10"),
+					dateEnd: new Date("2022, 07 ,29"),
 					voted: false,
 					result: "",
 					options: [
@@ -116,7 +116,7 @@ export const store = new Vuex.Store({
 					title: "Gatti",
 					description: "Votazione per il gatto più bello",
 					dateStart: new Date("2020, 04, 10"),
-					dateEnd: new Date("2022, 04, 10"),
+					dateEnd: new Date("2021, 04, 10"),
 					voted: true,
 					result: "Persiano",
 					options: [
