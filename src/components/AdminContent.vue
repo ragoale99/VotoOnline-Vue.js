@@ -2,9 +2,7 @@
 	<div>
 		<v-container fluid class="mt-2" v-if="!modifyVotation && !addVotation">
 			<v-card elevation="24" outlined class="pa-4">
-				<v-card-title class="justify-center pt-0"
-					><h2 class="resize">Votazioni disponibili</h2>
-				</v-card-title>
+				<v-card-title class="justify-center pt-0"><h2 class="resize">Votazioni</h2> </v-card-title>
 				<p v-if="getVotations().length === 0" class="text-center mt-4 mex">
 					Non ci sono votazioni disponibili in questo momento! Puoi però crearne una nuova!
 				</p>
