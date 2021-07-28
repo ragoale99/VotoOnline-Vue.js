@@ -1,5 +1,5 @@
 <template>
-	<v-container class="mt-4">
+	<v-container class="mt-3">
 		<v-row class="mx-md-5" align="center">
 			<v-col>
 				<h1 align="center">
