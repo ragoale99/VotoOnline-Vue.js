@@ -257,11 +257,11 @@ export default {
 
 .back:hover {
 	transform: scale(1.1);
-	-webkit-transition: all 500ms ease;
-	-moz-transition: all 500ms ease;
-	-ms-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
+	-webkit-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	transition: all 300ms ease;
 	cursor: pointer;
 	user-select: none; /* supported by Chrome and Opera */
 	-webkit-user-select: none; /* Safari */

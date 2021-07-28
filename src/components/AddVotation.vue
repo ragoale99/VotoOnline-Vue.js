@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div class="flex back" @click="backToMainPage">
-			<v-icon class="mr-1" large color="blue">arrow_back</v-icon>
-			<h3><strong>Indietro</strong></h3>
+			<v-icon large color="#4bca25">arrow_back</v-icon>
+			<h2><strong>Indietro</strong></h2>
 		</div>
-		<v-btn class="mx-2 float-btn" fab color="#2296f3" @click="backToMainPage">
+		<v-btn class="mx-2 float-btn" fab color="#4bca25" @click="backToMainPage">
 			<v-icon color="black" large>arrow_back</v-icon>
 		</v-btn>
 		<v-container class="mt-2 contain mb-3">
@@ -231,16 +231,16 @@ export default {
 	position: absolute;
 	top: 1em;
 	left: 1em;
-	color: #2296f3;
+	color: #4bca25;
 }
 
 .back:hover {
 	transform: scale(1.1);
-	-webkit-transition: all 500ms ease;
-	-moz-transition: all 500ms ease;
-	-ms-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
+	-webkit-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	transition: all 300ms ease;
 	cursor: pointer;
 	user-select: none; /* supported by Chrome and Opera */
 	-webkit-user-select: none; /* Safari */
